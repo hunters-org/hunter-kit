@@ -1,0 +1,285 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --main-bg-color: brown;
+  --dark-bg: #000000;
+  --semi-dark-bg: #191F29;
+  --btn-bg: #6772E5;
+  --light-purple: #A3AAEF;
+  --nlight-purple: #818cf8;
+  --tert-color: #F5BE58;
+  --white-color: #FFF;
+  --green-color: #4AAE90; 
+  --fad-dark:#191e26;
+  --new-fad: #17181D;
+  --gray-color: #888F96;
+  --d: 2500ms;
+  --angle: 90deg;
+  --c1: rgba(56, 189, 248, 1);
+  --c2: rgba(168, 239, 255, 0.1);
+} 
+
+body, html {
+background: var(--dark-bg);
+overflow-y:scroll;
+@apply w-full;
+@apply h-full;
+scroll-behavior: smooth;
+min-height: 100vh;
+/* @apply overscroll-none; */
+}
+
+::selection {
+@apply text-white;
+@apply bg-indigo-500/10;
+}
+
+.app {
+font-family: Inter var,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+/* font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace; */
+letter-spacing: .6px;
+font-weight: normal;
+color: var(--gray-color);
+}
+
+.console-demo {
+background: var(--new-fad);
+}
+.luxury { /* general */
+background:transparent;
+background-position: 1% 50%;
+background-size: 300% 300%;
+flex: 1 auto;
+transition: all 0.5s ease-out;
+}
+
+.transparent-button {
+background-image: linear-gradient(45deg, transparent 0%, transparent 75%, rgba(255,255,255,0.8) 75%, transparent 100%);
+}
+
+.purple-button {
+background-image: linear-gradient(45deg, transparent 0%, #6772E5, transparent 100%);  
+}
+
+.white-button {
+background-image: linear-gradient(45deg, transparent 0%, #fff 30%, transparent 100%) !important;  
+}
+
+.blue-button {
+background-image: linear-gradient(45deg, transparent 0%, #0ea5e9, transparent 100%);  
+}
+
+.npurple-button {
+background-image: linear-gradient(45deg, transparent 0%, #c084fc, transparent 100%);  
+}
+
+.red-button {
+background-image: linear-gradient(45deg, transparent 0%, #ef4444, transparent 100%);  
+}
+
+
+.transparent-button:hover {
+background-position:150% top;
+}
+.white-button:hover, .transparent-button:hover, .white-button:focus, .transparent-button:focus {
+@apply text-white;
+}
+
+.badge.is-highlightBadge:before {
+animation: highlightGlow 3.5s;
+animation-delay: 1.8s;
+animation-iteration-count: infinite;
+animation-timing-function: ease-out;
+background: linear-gradient(180deg,rgba(255,255,255,0) 0,rgba(255,255,255,.18) 25%,rgba(255,255,255,.3) 50%,rgba(255,255,255,.18) 75%,rgba(255,255,255,0));
+content: "";
+display: block;
+height: 90px;
+left: -60%;
+position: absolute;
+top: -150px;
+transform: rotate(-25deg);
+width: 200px;
+}
+
+@keyframes highlightGlow {
+0% {
+    left: -100%;
+    top: -150px
+}
+
+50% {
+    left: 200%;
+    top: 150px
+}
+
+to {
+    left: 100%;
+    top: 150px
+}
+}
+
+
+.purple-button:hover, .white-button:hover, .blue-button:hover, .red-button:hover, .npurple-button:hover {
+background-position:100% top;
+}
+
+.text-ob-gray-color {
+color: var(--gray-color);
+}
+.bg-ob-gray-color {
+background-color: var(--gray-color);
+}
+.b-ob-gray-color {
+border-color: var(--gray-color);
+}
+
+.font-mon {
+font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+}
+
+@property --angle {
+syntax: "<angle>";
+initial-value: 90deg;
+inherits: true;
+}
+
+
+
+.stat {
+font-family: 'Source Sans Pro';
+}
+.bg-dark-color {
+background-color: var(--dark-bg);
+}
+.bg-semi-dark-color {
+background-color: var(--semi-dark-bg);
+}
+
+.bg-fad-dark-color {
+  background-color: var(--fad-dark);
+}
+
+.text-ob-dark-color {
+color: var(--dark-bg);
+}
+
+.text-fad-dark-color {
+ color: var(--fad-dark);
+}
+
+.backdrop-blur {
+ backdrop-filter: blur(8px);
+}
+
+.tooltip {
+@apply relative;
+}
+
+.tooltip .tooltiptext {
+visibility: hidden;
+@apply max-w-xs;
+min-width: 100px;
+background-color: var(--fad-dark);
+@apply text-white;
+@apply text-center;
+@apply rounded-md;
+@apply p-1;
+@apply text-xs;
+@apply font-medium;
+@apply mx-auto;
+@apply -ml-8;
+@apply mt-2;
+
+/* Position the tooltip */
+@apply absolute;
+z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+@apply visible;
+}
+
+.typing-demo {
+width: 22ch;
+animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+white-space: nowrap;
+overflow: hidden;
+border-right: 3px solid;
+}
+
+@keyframes typing {
+from {
+  width: 0
+}
+}
+  
+@keyframes blink {
+50% {
+  border-color: transparent
+}
+}
+
+
+.text-so-small {
+font-size: 10px;
+@apply font-semibold;
+color: var(--btn-bg);
+}
+
+.tooltip {
+@apply relative;
+}
+
+.tooltip .tooltiptext {
+visibility: hidden;
+@apply max-w-xs;
+min-width: 100px;
+background-color: var(--semi-dark-bg);
+@apply text-white;
+@apply text-center;
+@apply rounded-md;
+@apply p-1;
+@apply text-xs;
+@apply font-medium;
+@apply mx-auto;
+@apply -ml-8;
+@apply mt-2;
+
+/* Position the tooltip */
+@apply absolute;
+z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+@apply visible;
+}
+
+/* sm */
+@media (min-width: 640px) {
+
+}
+
+/* md */
+@media (min-width: 768px) {
+
+}
+
+/* xl */
+@media (min-width: 1280px) {
+
+}
+
+/* 2xl */
+@media (min-width: 1536px) {
+
+}
+
+.truncate-line-clamp {
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical; 
+/* width: 26.5rem; */
+overflow: hidden;
+}
