@@ -3,6 +3,7 @@ import './App.css';
 import { ThemeProvider } from '@primer/react-brand';
 import { Banner } from './components/Banner';
 import { Dashboard } from './views/Dashboard';
+import { Recon } from './views/Recon';
 
 function Home() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="dashboard/:projectSlug" element={<Recon />} />
         </Routes>
       </Router>
     </ThemeProvider>

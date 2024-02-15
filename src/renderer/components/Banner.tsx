@@ -6,10 +6,12 @@ import { Link } from 'react-router-dom';
 
 // eslint-disable-next-line import/prefer-default-export
 export function Banner() {
+  const getPath = window.electron.ipcRenderer.sendSync('get-project-dir');
+
   const HandleClick = async () => {
     window.electron.ipcRenderer.sendMessage('subfinder-process', {
       domain: 'zjunior.com',
-      folderPath: '.',
+      folderPath: `${getPath}/zjunior`,
     });
   };
   return (
@@ -54,10 +56,10 @@ export function Banner() {
               in on hunter kit.
             </p>
             <div className="flex justify-center gap-10">
-              <Button variant="primary">
-                <Link to="/dashboard">Dashboard</Link>
-              </Button>
-              <button onClick={HandleClick}>sds</button>
+              <Link to="/dashboard">
+                <Button variant="primary">Dashboard</Button>
+              </Link>
+              <button onClick={HandleClick}>{getPath}</button>
             </div>
           </div>
         </div>

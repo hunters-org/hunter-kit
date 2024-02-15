@@ -5,7 +5,7 @@ import os from 'node:os';
 import path, { join } from 'path';
 import { existsSync, mkdir, mkdirSync } from 'fs';
 
-const dependenciesDir = join(__dirname, '../bin');
+const dependenciesDir = join(__dirname, '../../bin');
 
 export function resolveHtmlPath(htmlFileName: string) {
   if (process.env.NODE_ENV === 'development') {

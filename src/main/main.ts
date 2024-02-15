@@ -14,7 +14,12 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { initProjectDir, resolveHtmlPath } from './util';
-import { subFinder } from './recon/recon';
+import { subFinder } from './recon/subfinder';
+import {
+  PROJECT_DIR,
+  createProjectDir,
+  readDirectoryNames,
+} from './api/project';
 
 class AppUpdater {
   constructor() {
@@ -27,7 +32,24 @@ class AppUpdater {
 let mainWindow: BrowserWindow | null = null;
 
 ipcMain.on('subfinder-process', async (event, args) => {
-  subFinder(args.domain, args.folderPath);
+  const res = subFinder(args.domain, args.folderPath);
+  event.returnValue = res;
+});
+
+ipcMain.on('get-project-dir', async (event) => {
+  event.returnValue = PROJECT_DIR;
+});
+
+ipcMain.on('list-projects', async (event) => {
+  const dirs = readDirectoryNames();
+  event.returnValue = dirs;
+});
+
+ipcMain.on('create-project', async (event, args) => {
+  createProjectDir('new-pro');
+  // const dirs = readDirectoryNames();
+  // event.returnValue = dirs;
+  // console.log(args[0].name);
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -39,7 +61,7 @@ const isDebug =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
 if (isDebug) {
-  // require('electron-debug')();
+  require('electron-debug')();
 }
 
 const installExtensions = async () => {
@@ -74,6 +96,7 @@ const createWindow = async () => {
     height: 900,
     icon: getAssetPath('icon.png'),
     webPreferences: {
+      nodeIntegration: true,
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
