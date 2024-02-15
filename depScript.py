@@ -4,27 +4,17 @@ import requests
 import zipfile
 import tarfile
 
-def get_os_arch():
+def get_os_type():
     system = platform.system().lower()
-    machine = platform.machine().lower()
 
     if system == "linux":
-        if machine == "x86_64":
-            return "linux_amd64"
-        elif machine == "x86":
-            return "linux_386"
-        elif machine.startswith("arm") or machine.startswith("aarch64"):
-            return "linux_arm64"
+        return "linux"
     elif system == "darwin":
-        if machine == "x86_64":
-            return "macOS_amd64"
+        return "macOS"
     elif system == "windows":
-        if machine == "amd64":
-            return "windows_amd64"
-        elif machine == "x86":
-            return "windows_386"
+        return "windows"
 
-    print(f"Unsupported operating system: {system} {machine}")
+    print(f"Unsupported operating system: {system}")
     exit(1)
 
 def download_and_extract(tool_info):
@@ -34,7 +24,7 @@ def download_and_extract(tool_info):
 
     api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
 
-    os_arch = get_os_arch()
+    os_type = get_os_type()
 
     response = requests.get(api_url)
 
@@ -44,8 +34,7 @@ def download_and_extract(tool_info):
         asset_url = None
         for asset in release_info['assets']:
             asset_name_lower = asset['name'].lower()
-            print(f"Available asset name: {asset_name_lower}")  # Print out the available asset names for debugging
-            if os_arch in asset_name_lower:
+            if os_type in asset_name_lower and "checksum" not in asset_name_lower:
                 asset_url = asset['browser_download_url']
                 break
 
@@ -79,7 +68,7 @@ def download_and_extract(tool_info):
 
             print(f"{tool_name.capitalize()} downloaded and extracted: {archive_file_name}")
         else:
-            print(f"No matching release asset found for {os_arch}")
+            print(f"No matching release asset found for {os_type} and not containing 'checksum'")
     elif response.status_code == 404:
         print(f"Release information not found for {tool_name}. Check if the repository or release exists.")
     else:
@@ -96,6 +85,9 @@ def extract_tar_archive(archive_file, extraction_path):
 if __name__ == "__main__":
     tools = [
         {"name": "subfinder", "repo_owner": "projectdiscovery", "repo_name": "subfinder"},
+        {"name": "httpx", "repo_owner": "projectdiscovery", "repo_name": "httpx"},
+        {"name": "waybackurls", "repo_owner": "tomnomnom", "repo_name": "waybackurls"},
+        {"name": "katana", "repo_owner": "projectdiscovery", "repo_name": "Katana"},
         # Add more tools as needed
     ]
 
