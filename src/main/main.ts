@@ -69,9 +69,11 @@ ipcMain.on('list-projects', async (event) => {
 });
 
 ipcMain.on('create-project', async (event, args) => {
+
   const { projectName, domain } = args;
   createProjectDir(projectName);
   createJsonFile(projectName, domain);
+
 
   // const dirs = readDirectoryNames();
   // event.returnValue = dirs;
