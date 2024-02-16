@@ -46,7 +46,7 @@ ipcMain.on('list-projects', async (event) => {
 });
 
 ipcMain.on('create-project', async (event, args) => {
-  createProjectDir('new-pro');
+  createProjectDir(args[0].name);
   // const dirs = readDirectoryNames();
   // event.returnValue = dirs;
   // console.log(args[0].name);
