@@ -6,7 +6,12 @@ export type Channels =
   | 'subfinder-process'
   | 'list-projects'
   | 'create-project'
-  | 'get-project-dir';
+  | 'get-project-dir'
+  | 'httpx-live-domain'
+  | 'httpx-screens'
+  | 'waybackurls-archive'
+  | 'waybackurls-js'
+  | 'waybackurls-parameter';
 
 const electronHandler = {
   ipcRenderer: {
