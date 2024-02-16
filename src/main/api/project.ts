@@ -33,3 +33,15 @@ export function createProjectDir(name: string) {
     console.error(`Error creating project dir: ${err}`);
   }
 }
+export function createJsonFile(name: string, domain: string) {
+  const obj = {
+    name: name,
+    domain: domain,
+  };
+  const josnString = JSON.stringify(obj);
+  try {
+    fs.writeFileSync(path.join(PROJECT_DIR, name, name + '.json'), josnString);
+  } catch (err) {
+    console.error(`Error creating project dir: ${err}`);
+  }
+}

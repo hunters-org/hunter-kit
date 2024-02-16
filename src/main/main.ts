@@ -17,9 +17,12 @@ import { initProjectDir, resolveHtmlPath } from './util';
 import { subFinder } from './recon/subfinder';
 import {
   PROJECT_DIR,
+  createJsonFile,
   createProjectDir,
   readDirectoryNames,
 } from './api/project';
+import { httprobeW, screenwin } from './recon/httpx';
+import { fetchJs, parameter, wwayback } from './recon/waybackurls';
 
 class AppUpdater {
   constructor() {
@@ -35,6 +38,26 @@ ipcMain.on('subfinder-process', async (event, args) => {
   const res = subFinder(args.domain, args.folderPath);
   event.returnValue = res;
 });
+ipcMain.on('httpx-live-domain', async (event, args) => {
+  const res = httprobeW();
+  event.returnValue = res;
+});
+ipcMain.on('httpx-screens', async (event, args) => {
+  const res = screenwin();
+  event.returnValue = res;
+});
+ipcMain.on('waybackurls-archive', async (event, args) => {
+  const res = wwayback();
+  event.returnValue = res;
+});
+ipcMain.on('waybackurls-js', async (event, args) => {
+  const res = fetchJs();
+  event.returnValue = res;
+});
+ipcMain.on('waybackurls-parameter', async (event, args) => {
+  const res = parameter();
+  event.returnValue = res;
+});
 
 ipcMain.on('get-project-dir', async (event) => {
   event.returnValue = PROJECT_DIR;
@@ -46,7 +69,10 @@ ipcMain.on('list-projects', async (event) => {
 });
 
 ipcMain.on('create-project', async (event, args) => {
-  createProjectDir('new-pro');
+  const { projectName, domain } = args;
+  createProjectDir(projectName);
+  createJsonFile(projectName, domain);
+
   // const dirs = readDirectoryNames();
   // event.returnValue = dirs;
   // console.log(args[0].name);
