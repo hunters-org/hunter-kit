@@ -108,7 +108,7 @@ export function Dashboard() {
               </div>
             </div>
             <DialogFooter>
-              <Button onClick={sendInputToFunction}>Save changes</Button>
+              <Button onClick={sendInputToFunction}>Create Project</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
