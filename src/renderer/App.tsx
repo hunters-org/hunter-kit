@@ -3,7 +3,10 @@ import './App.css';
 import { ThemeProvider } from '@primer/react-brand';
 import { Banner } from './components/Banner';
 import { Dashboard } from './views/Dashboard';
-import { Recon } from './views/Recon';
+import { Toaster } from './components/ui/toaster';
+import Results from './views/project/result';
+import { ProjectLayout } from './layout/projectLayout';
+import Status from './views/project/status';
 
 function Home() {
   return (
@@ -19,10 +22,14 @@ export default function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="dashboard/:projectSlug" element={<Recon />} />
+          <Route path="/projects" element={<Dashboard />} />
+          <Route path="/:projectSlug" element={<ProjectLayout />}>
+            <Route path="dashboard" element={<Status />} />
+            <Route path="result" element={<Results />} />
+          </Route>
         </Routes>
       </Router>
+      <Toaster />
     </ThemeProvider>
   );
 }

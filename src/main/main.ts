@@ -69,15 +69,14 @@ ipcMain.on('list-projects', async (event) => {
 });
 
 ipcMain.on('create-project', async (event, args) => {
-
-  const { projectName, domain } = args;
-  createProjectDir(projectName);
-  createJsonFile(projectName, domain);
-
-
-  // const dirs = readDirectoryNames();
-  // event.returnValue = dirs;
-  // console.log(args[0].name);
+  const { projectName, domain } = args[0];
+  try {
+    createProjectDir(projectName);
+    createJsonFile(projectName, domain);
+    event.returnValue = { error: false };
+  } catch (err) {
+    event.returnValue = { error: true };
+  }
 });
 
 if (process.env.NODE_ENV === 'production') {

@@ -6,14 +6,6 @@ import { Link } from 'react-router-dom';
 
 // eslint-disable-next-line import/prefer-default-export
 export function Banner() {
-  const getPath = window.electron.ipcRenderer.sendSync('get-project-dir');
-
-  const HandleClick = async () => {
-    window.electron.ipcRenderer.sendMessage('subfinder-process', {
-      domain: 'zjunior.com',
-      folderPath: `${getPath}/zjunior`,
-    });
-  };
   return (
     <div className="relative isolate overflow-hidden">
       <svg
@@ -59,7 +51,6 @@ export function Banner() {
               <Link to="/dashboard">
                 <Button variant="primary">Dashboard</Button>
               </Link>
-              <button onClick={HandleClick}>{getPath}</button>
             </div>
           </div>
         </div>

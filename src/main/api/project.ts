@@ -35,12 +35,15 @@ export function createProjectDir(name: string) {
 }
 export function createJsonFile(name: string, domain: string) {
   const obj = {
-    name: name,
-    domain: domain,
+    name,
+    domain,
   };
-  const josnString = JSON.stringify(obj);
+  const stringifyObj = JSON.stringify(obj);
   try {
-    fs.writeFileSync(path.join(PROJECT_DIR, name, name + '.json'), josnString);
+    fs.writeFileSync(
+      path.join(`${PROJECT_DIR}/${name}`, 'details.json'),
+      stringifyObj,
+    );
   } catch (err) {
     console.error(`Error creating project dir: ${err}`);
   }
