@@ -48,7 +48,7 @@ export function Banner() {
               in on hunter kit.
             </p>
             <div className="flex justify-center gap-10">
-              <Link to="/dashboard">
+              <Link to="/projects">
                 <Button variant="primary">Dashboard</Button>
               </Link>
             </div>
