@@ -3,7 +3,7 @@ import path from 'path';
 import { toolPath } from '../util';
 import { PROJECT_DIR } from '../api/project';
 
-export function httprobeW(outputDir: string = PROJECT_DIR): {
+export function liveSubDomains(outputDir: string = PROJECT_DIR): {
   message: string;
   success: boolean;
   error: any;

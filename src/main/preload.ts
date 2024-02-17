@@ -11,7 +11,8 @@ export type Channels =
   | 'httpx-screens'
   | 'waybackurls-archive'
   | 'waybackurls-js'
-  | 'waybackurls-parameter';
+  | 'waybackurls-parameter'
+  | 'get-project-details';
 
 const electronHandler = {
   ipcRenderer: {

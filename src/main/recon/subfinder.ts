@@ -3,7 +3,7 @@
 import { execSync } from 'child_process';
 import path from 'path';
 import { toolPath } from '../util';
-import { PROJECT_DIR } from '../api/project';
+import { PROJECT_DIR, appendDateToJson } from '../api/project';
 
 export function subFinder(
   domains: string | string[],
@@ -17,7 +17,7 @@ export function subFinder(
       'recon_subdomins.txt',
     )}`;
   } else {
-    const domainsSpread = `${domains.reduce((prev, curr) => prev + ' ' + curr)}`;
+    const domainsSpread = `${domains.reduce((prev, curr) => `${prev} ${curr}`)}`;
     command = `${subfinderPath} -d ${domainsSpread} >> ${path.join(
       outputDir,
       'recon_subdomins.txt',
@@ -26,6 +26,7 @@ export function subFinder(
 
   try {
     execSync(command);
+    appendDateToJson(outputDir, { subFinder: true });
     return { message: 'Done', success: true, error: '' };
   } catch (error: any) {
     return { message: 'Error', success: false, error };
