@@ -6,11 +6,6 @@ export type DashboardMenu = {
   icon: ReactNode;
 };
 
-export type jobLoaders = {
-  job: string;
-  state: boolean;
-};
-
 export type ProjectDetails = {
   name: string;
   domain: string;
