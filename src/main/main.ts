@@ -17,9 +17,13 @@ import { initProjectDir, resolveHtmlPath } from './util';
 import { subFinder } from './recon/subfinder';
 import {
   PROJECT_DIR,
+  createJsonFile,
   createProjectDir,
+  projectDetails,
   readDirectoryNames,
 } from './api/project';
+import { liveSubDomains, screenwin } from './recon/httpx';
+import { fetchJs, parameter, wwayback } from './recon/waybackurls';
 
 class AppUpdater {
   constructor() {
@@ -32,12 +36,39 @@ class AppUpdater {
 let mainWindow: BrowserWindow | null = null;
 
 ipcMain.on('subfinder-process', async (event, args) => {
-  const res = subFinder(args.domain, args.folderPath);
+  const { domain, projectName } = args[0];
+  const res = subFinder(domain, `${PROJECT_DIR}/${projectName}`);
+  event.returnValue = res;
+});
+ipcMain.on('httpx-live-domain', async (event, args) => {
+  const res = liveSubDomains();
+  event.returnValue = res;
+});
+ipcMain.on('httpx-screens', async (event, args) => {
+  const res = screenwin();
+  event.returnValue = res;
+});
+ipcMain.on('waybackurls-archive', async (event, args) => {
+  const res = wwayback();
+  event.returnValue = res;
+});
+ipcMain.on('waybackurls-js', async (event, args) => {
+  const res = fetchJs();
+  event.returnValue = res;
+});
+ipcMain.on('waybackurls-parameter', async (event, args) => {
+  const res = parameter();
   event.returnValue = res;
 });
 
 ipcMain.on('get-project-dir', async (event) => {
   event.returnValue = PROJECT_DIR;
+});
+
+ipcMain.on('get-project-details', async (event, args) => {
+  const projectName = args[0];
+  const data = projectDetails(projectName);
+  event.returnValue = data;
 });
 
 ipcMain.on('list-projects', async (event) => {
@@ -46,10 +77,14 @@ ipcMain.on('list-projects', async (event) => {
 });
 
 ipcMain.on('create-project', async (event, args) => {
-  createProjectDir(args[0].name);
-  // const dirs = readDirectoryNames();
-  // event.returnValue = dirs;
-  // console.log(args[0].name);
+  const { projectName, domain } = args[0];
+  try {
+    createProjectDir(projectName);
+    createJsonFile(projectName, domain);
+    event.returnValue = { error: false };
+  } catch (err) {
+    event.returnValue = { error: true };
+  }
 });
 
 if (process.env.NODE_ENV === 'production') {
