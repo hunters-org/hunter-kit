@@ -19,9 +19,10 @@ import {
   PROJECT_DIR,
   createJsonFile,
   createProjectDir,
+  projectDetails,
   readDirectoryNames,
 } from './api/project';
-import { httprobeW, screenwin } from './recon/httpx';
+import { liveSubDomains, screenwin } from './recon/httpx';
 import { fetchJs, parameter, wwayback } from './recon/waybackurls';
 
 class AppUpdater {
@@ -35,11 +36,12 @@ class AppUpdater {
 let mainWindow: BrowserWindow | null = null;
 
 ipcMain.on('subfinder-process', async (event, args) => {
-  const res = subFinder(args.domain, args.folderPath);
+  const { domain, projectName } = args[0];
+  const res = subFinder(domain, `${PROJECT_DIR}/${projectName}`);
   event.returnValue = res;
 });
 ipcMain.on('httpx-live-domain', async (event, args) => {
-  const res = httprobeW();
+  const res = liveSubDomains();
   event.returnValue = res;
 });
 ipcMain.on('httpx-screens', async (event, args) => {
@@ -61,6 +63,12 @@ ipcMain.on('waybackurls-parameter', async (event, args) => {
 
 ipcMain.on('get-project-dir', async (event) => {
   event.returnValue = PROJECT_DIR;
+});
+
+ipcMain.on('get-project-details', async (event, args) => {
+  const projectName = args[0];
+  const data = projectDetails(projectName);
+  event.returnValue = data;
 });
 
 ipcMain.on('list-projects', async (event) => {

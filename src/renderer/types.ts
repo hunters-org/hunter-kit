@@ -5,3 +5,13 @@ export type DashboardMenu = {
   title: string;
   icon: ReactNode;
 };
+
+export type jobLoaders = {
+  job: string;
+  state: boolean;
+};
+
+export type ProjectDetails = {
+  name: string;
+  domain: string;
+};

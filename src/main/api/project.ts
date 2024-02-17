@@ -48,3 +48,29 @@ export function createJsonFile(name: string, domain: string) {
     console.error(`Error creating project dir: ${err}`);
   }
 }
+
+export function appendDateToJson(projectName: string, data: Object) {
+  try {
+    const blob = fs.readFileSync(
+      path.join(`${projectName}`, 'details.json'),
+      'utf-8',
+    );
+    const oldData = JSON.parse(blob);
+    const newData = JSON.stringify({ ...oldData, ...data });
+    fs.writeFileSync(path.join(`${projectName}`, 'details.json'), newData);
+  } catch (err) {
+    console.error(`Error creating project dir: ${err}`);
+  }
+}
+
+export function projectDetails(projectName: string) {
+  try {
+    const blob = fs.readFileSync(
+      `${PROJECT_DIR}/${projectName}/details.json`,
+      'utf-8',
+    );
+    return JSON.parse(blob);
+  } catch (error) {
+    throw new Error('a7aa');
+  }
+}

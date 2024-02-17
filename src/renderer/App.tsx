@@ -7,6 +7,7 @@ import { Toaster } from './components/ui/toaster';
 import Results from './views/project/result';
 import { ProjectLayout } from './layout/projectLayout';
 import Status from './views/project/status';
+import Recon from './views/project/recon';
 
 function Home() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/:projectSlug" element={<ProjectLayout />}>
             <Route path="dashboard" element={<Status />} />
             <Route path="result" element={<Results />} />
+            <Route path="recon" element={<Recon />} />
           </Route>
         </Routes>
       </Router>
