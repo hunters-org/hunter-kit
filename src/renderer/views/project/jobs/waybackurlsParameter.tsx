@@ -8,7 +8,7 @@ import { Button } from '../../../components/ui/button';
 import { useToast } from '../../../components/ui/use-toast';
 import { ProjectDetails } from '../../../types';
 
-export default function SubFinderJob() {
+export default function WaybackurlsParameterJob() {
   const { projectSlug } = useParams();
   const [projectDetails, setDetails] = useState<ProjectDetails>();
   useEffect(() => {
@@ -21,16 +21,19 @@ export default function SubFinderJob() {
 
   const [Loading, setLoading] = useState<boolean>(false);
   const { toast } = useToast();
-  const RunSubFinder = () => {
+  const RunWaybackurlsParameter = () => {
     setLoading(true);
     if (projectDetails) {
-      const res = window.electron.ipcRenderer.sendSync('subfinder-process', {
-        projectName: projectDetails.name,
-        domain: projectDetails.domain,
-      });
+      const res = window.electron.ipcRenderer.sendSync(
+        'waybackurls-parameter',
+        {
+          projectName: projectDetails.name,
+          domain: projectDetails.domain,
+        },
+      );
       if (res) {
         toast({
-          title: 'sub-domains job finished',
+          title: 'Parameters are ready',
         });
       }
     }
@@ -39,7 +42,7 @@ export default function SubFinderJob() {
   return (
     <>
       {!Loading ? (
-        <Button onClick={RunSubFinder}>Process</Button>
+        <Button onClick={RunWaybackurlsParameter}>Process</Button>
       ) : (
         <Button disabled>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
