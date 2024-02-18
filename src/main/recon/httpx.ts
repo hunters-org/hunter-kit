@@ -30,7 +30,7 @@ export function screenwin(outputDir: string = PROJECT_DIR): {
 
   const command = `${httpxPath} -ss -l ${path.join(
     outputDir,
-    'domains.txt',
+    'recon_subdomins.txt',
   )} -srd ${path.join(outputDir, 'httpx_screen')}`;
   try {
     execSync(command);

@@ -6,6 +6,11 @@ import {
   CardTitle,
 } from '../../components/ui/card';
 import SubFinderJob from './jobs/subfinder';
+import LiveSubdomainsJob from './jobs/liveSubDomains';
+import HttpxScreensJob from './jobs/httpxScreens';
+import WaybackurlsArchiveJob from './jobs/waybackurlsArchive';
+import WaybackurlsJsJob from './jobs/waybackurlsJs';
+import WaybackurlsParameterJob from './jobs/waybackurlsParameter';
 
 export default function Recon() {
   return (
@@ -34,7 +39,7 @@ export default function Recon() {
               </CardDescription>
             </CardHeader>
             <CardContent className="flex justify-end">
-              <SubFinderJob />
+              <LiveSubdomainsJob />
             </CardContent>
           </Card>
           <Card>
@@ -46,7 +51,7 @@ export default function Recon() {
               </CardDescription>
             </CardHeader>
             <CardContent className="flex justify-end">
-              <SubFinderJob />
+              <HttpxScreensJob />
             </CardContent>
           </Card>
           <Card>
@@ -57,7 +62,7 @@ export default function Recon() {
               </CardDescription>
             </CardHeader>
             <CardContent className="flex justify-end">
-              <SubFinderJob />
+              <WaybackurlsArchiveJob />
             </CardContent>
           </Card>
           <Card>
@@ -69,7 +74,7 @@ export default function Recon() {
               </CardDescription>
             </CardHeader>
             <CardContent className="flex justify-end">
-              <SubFinderJob />
+              <WaybackurlsJsJob />
             </CardContent>
           </Card>
           <Card>
@@ -81,7 +86,7 @@ export default function Recon() {
               </CardDescription>
             </CardHeader>
             <CardContent className="flex justify-end">
-              <SubFinderJob />
+              <WaybackurlsParameterJob />
             </CardContent>
           </Card>
         </div>
