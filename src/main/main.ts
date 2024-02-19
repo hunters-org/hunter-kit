@@ -41,23 +41,28 @@ ipcMain.on('subfinder-process', async (event, args) => {
   event.returnValue = res;
 });
 ipcMain.on('httpx-live-domain', async (event, args) => {
-  const res = liveSubDomains();
+  const { projectName } = args[0];
+  const res = liveSubDomains(`${PROJECT_DIR}/${projectName}`);
   event.returnValue = res;
 });
 ipcMain.on('httpx-screens', async (event, args) => {
-  const res = screenwin();
+  const { projectName } = args[0];
+  const res = screenwin(`${PROJECT_DIR}/${projectName}`);
   event.returnValue = res;
 });
 ipcMain.on('waybackurls-archive', async (event, args) => {
-  const res = wwayback();
+  const { projectName } = args[0];
+  const res = wwayback(`${PROJECT_DIR}/${projectName}`);
   event.returnValue = res;
 });
 ipcMain.on('waybackurls-js', async (event, args) => {
-  const res = fetchJs();
+  const { projectName } = args[0];
+  const res = fetchJs(`${PROJECT_DIR}/${projectName}`);
   event.returnValue = res;
 });
 ipcMain.on('waybackurls-parameter', async (event, args) => {
-  const res = parameter();
+  const { projectName } = args[0];
+  const res = parameter(`${PROJECT_DIR}/${projectName}`);
   event.returnValue = res;
 });
 

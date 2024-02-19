@@ -11,7 +11,7 @@ export function liveSubDomains(outputDir: string = PROJECT_DIR): {
   const httprobeWPath = toolPath('httpx');
   const command = `${httprobeWPath} -l ${path.join(
     outputDir,
-    'domains.txt',
+    'recon_subdomins.txt',
   )} -o ${path.join(outputDir, 'httpx_live_domains.txt')}`;
   try {
     execSync(command);
@@ -30,7 +30,7 @@ export function screenwin(outputDir: string = PROJECT_DIR): {
 
   const command = `${httpxPath} -ss -l ${path.join(
     outputDir,
-    'domains.txt',
+    'recon_subdomins.txt',
   )} -srd ${path.join(outputDir, 'httpx_screen')}`;
   try {
     execSync(command);
