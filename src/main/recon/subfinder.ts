@@ -4,8 +4,9 @@
 import util from 'util';
 import { exec } from 'child_process';
 import path from 'path';
-import { toolPath } from '../util';
-import { PROJECT_DIR, appendDateToJson } from '../api/project';
+import { resultFromStd, toolPath } from '../util';
+import { PROJECT_DIR } from '../api/project';
+import { connectJson } from '../db/connect';
 
 const execAsync = util.promisify(exec);
 
@@ -29,8 +30,21 @@ export async function subFinder(
   }
 
   try {
-    await execAsync(command);
-    appendDateToJson(outputDir, { subFinder: true });
+    const res = await execAsync(command);
+    const domainsFound = resultFromStd(res.stderr, /\bFound (\d+) subdomains?/);
+    const db = connectJson(path.join(`${outputDir}/details.json`));
+    await db.update({
+      recon: {
+        subfinder: {
+          result: parseInt(domainsFound, 10),
+          run: true,
+          filePath: '',
+          date: new Date(Date.now()).toUTCString(),
+        },
+      },
+    });
+    console.log(await db.read());
+    // appendDateToJson(outputDir, { subFinder: true });
     return { message: 'Done', success: true, error: '' };
   } catch (error: any) {
     return { message: 'Error', success: false, error };

@@ -20,6 +20,7 @@ import {
   createJsonFile,
   createProjectDir,
   projectDetails,
+  projectDetailss,
   readDirectoryNames,
 } from './api/project';
 import { liveSubDomains, screenwin } from './recon/httpx';
@@ -74,6 +75,12 @@ ipcMain.on('get-project-details', async (event, args) => {
   const projectName = args[0];
   const data = projectDetails(projectName);
   event.returnValue = data;
+});
+
+ipcMain.handle('get-project-detailss', async (event, args) => {
+  const projectName = args[0];
+  const data = projectDetailss(projectName);
+  return data;
 });
 
 ipcMain.on('list-projects', async (event) => {

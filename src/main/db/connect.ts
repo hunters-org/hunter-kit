@@ -7,10 +7,10 @@ export interface ProjectDetails {
   name: string;
   domain: string;
   recon?: {
-    subfinder: JobDetails;
-    screens: JobDetails;
-    params: JobDetails;
-    liveDomains: JobDetails;
+    subfinder?: JobDetails;
+    screens?: JobDetails;
+    params?: JobDetails;
+    liveDomains?: JobDetails;
   };
 }
 
