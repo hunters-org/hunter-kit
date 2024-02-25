@@ -49,3 +49,6 @@ export function createDirIfNotExist(outputDir: string, dirname: string) {
     console.error(err);
   }
 }
+export function defaultToolObj(): { run: boolean; resulCount: number } {
+  return { run: false, resulCount: 0 };
+}

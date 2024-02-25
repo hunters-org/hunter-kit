@@ -2,6 +2,7 @@
 /* eslint-disable no-console */
 import fs from 'fs';
 import path from 'path';
+import { defaultToolObj } from '../util';
 
 export const PROJECT_DIR = path.join(__dirname, '../../../projects');
 
@@ -37,6 +38,12 @@ export function createJsonFile(name: string, domain: string) {
   const obj = {
     name,
     domain,
+    subFinder: defaultToolObj(),
+    liveDomains: defaultToolObj(),
+    screenWin: defaultToolObj(),
+    archive: defaultToolObj(),
+    waybackurls_js: defaultToolObj(),
+    waybackurls_parameter: defaultToolObj(),
   };
   const stringifyObj = JSON.stringify(obj);
   try {
