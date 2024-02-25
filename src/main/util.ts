@@ -52,3 +52,11 @@ export function createDirIfNotExist(outputDir: string, dirname: string) {
 export function defaultToolObj(): { run: boolean; resulCount: number } {
   return { run: false, resulCount: 0 };
 }
+
+export function resultFromStd(text: string, regex: RegExp) {
+  const matches = text.match(regex);
+  if (matches && matches.length > 1) {
+    return matches[1];
+  }
+  return '';
+}

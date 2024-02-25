@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
+
 export type DashboardMenu = {
   href: string;
   title: string;
@@ -11,7 +12,20 @@ export type jobLoaders = {
   state: boolean;
 };
 
+export type JobDetails = {
+  run: boolean;
+  filePath: string;
+  result?: number | string;
+  date: string;
+};
+
 export type ProjectDetails = {
   name: string;
   domain: string;
+  recon?: {
+    subfinder?: JobDetails;
+    screens?: JobDetails;
+    params?: JobDetails;
+    liveDomains?: JobDetails;
+  };
 };

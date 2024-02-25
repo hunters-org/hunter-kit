@@ -3,6 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import { defaultToolObj } from '../util';
+import { connectJson } from '../db/connect';
 
 export const PROJECT_DIR = path.join(__dirname, '../../../projects');
 
@@ -77,6 +78,15 @@ export function projectDetails(projectName: string) {
       'utf-8',
     );
     return JSON.parse(blob);
+  } catch (error) {
+    throw new Error('a7aa');
+  }
+}
+
+export function projectDetailss(projectName: string) {
+  try {
+    const db = connectJson(`${PROJECT_DIR}/${projectName}/details.json`);
+    return db.read();
   } catch (error) {
     throw new Error('a7aa');
   }

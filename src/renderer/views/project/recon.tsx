@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -11,8 +12,20 @@ import HttpxScreensJob from './jobs/httpxScreens';
 import WaybackurlsArchiveJob from './jobs/waybackurlsArchive';
 import WaybackurlsJsJob from './jobs/waybackurlsJs';
 import WaybackurlsParameterJob from './jobs/waybackurlsParameter';
+import { ProjectDetails } from '../../types';
 
 export default function Recon() {
+  const [details, setDetails] = useState<ProjectDetails>();
+  const getDetails = async () => {
+    const res = await window.electron.ipcRenderer.invoke(
+      'get-project-detailss',
+      'onboardbase',
+    );
+    setDetails(res);
+  };
+  useEffect(() => {
+    getDetails();
+  }, []);
   return (
     <div className="flex flex-col gap-4">
       <h1 className="font-bold text-3xl">Initiate Recon Attacks</h1>
@@ -26,7 +39,14 @@ export default function Recon() {
                 domain
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex justify-end">
+            <CardContent className="flex justify-between">
+              {details && (
+                <div className="flex flex-col space-x-2">
+                  <h1 className="flex flex-col font-semibold">
+                    Last Run <span>{details.recon?.subfinder?.date}</span>
+                  </h1>
+                </div>
+              )}
               <SubFinderJob />
             </CardContent>
           </Card>
