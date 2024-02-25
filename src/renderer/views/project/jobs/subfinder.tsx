@@ -21,13 +21,16 @@ export default function SubFinderJob() {
 
   const [Loading, setLoading] = useState<boolean>(false);
   const { toast } = useToast();
-  const RunSubFinder = () => {
+  const RunSubFinder = async () => {
     setLoading(true);
     if (projectDetails) {
-      const res = window.electron.ipcRenderer.sendSync('subfinder-process', {
-        projectName: projectDetails.name,
-        domain: projectDetails.domain,
-      });
+      const res = await window.electron.ipcRenderer.invoke(
+        'subfinder-process',
+        {
+          projectName: projectDetails.name,
+          domain: projectDetails.domain,
+        },
+      );
       if (res) {
         toast({
           title: 'sub-domains job finished',

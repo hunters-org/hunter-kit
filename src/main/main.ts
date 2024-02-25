@@ -35,10 +35,10 @@ class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
-ipcMain.on('subfinder-process', async (event, args) => {
+ipcMain.handle('subfinder-process', async (event, args) => {
   const { domain, projectName } = args[0];
   const res = subFinder(domain, `${PROJECT_DIR}/${projectName}`);
-  event.returnValue = res;
+  return res;
 });
 ipcMain.on('httpx-live-domain', async (event, args) => {
   const { projectName } = args[0];

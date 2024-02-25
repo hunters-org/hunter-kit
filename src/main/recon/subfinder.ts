@@ -1,14 +1,18 @@
 /* eslint-disable no-console */
 /* eslint-disable import/prefer-default-export */
-import { execSync } from 'child_process';
+
+import util from 'util';
+import { exec } from 'child_process';
 import path from 'path';
 import { toolPath } from '../util';
 import { PROJECT_DIR, appendDateToJson } from '../api/project';
 
-export function subFinder(
+const execAsync = util.promisify(exec);
+
+export async function subFinder(
   domains: string | string[],
   outputDir: string = PROJECT_DIR,
-): { message: string; success: boolean; error: any } {
+): Promise<{ message: string; success: boolean; error: any }> {
   const subfinderPath = toolPath('subfinder');
   let command = '';
   if (typeof domains === 'string') {
@@ -25,7 +29,7 @@ export function subFinder(
   }
 
   try {
-    execSync(command);
+    await execAsync(command);
     appendDateToJson(outputDir, { subFinder: true });
     return { message: 'Done', success: true, error: '' };
   } catch (error: any) {

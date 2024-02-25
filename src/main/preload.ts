@@ -34,6 +34,9 @@ const electronHandler = {
     sendSync(channel: Channels, ...args: unknown[]) {
       return ipcRenderer.sendSync(channel, args);
     },
+    invoke(channel: Channels, ...args: unknown[]) {
+      return ipcRenderer.invoke(channel, args);
+    },
   },
 };
 
