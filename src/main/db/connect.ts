@@ -11,6 +11,8 @@ export interface ProjectDetails {
     screens?: JobDetails;
     params?: JobDetails;
     liveDomains?: JobDetails;
+    archive?: JobDetails;
+    waybackurls_js?: JobDetails;
   };
 }
 

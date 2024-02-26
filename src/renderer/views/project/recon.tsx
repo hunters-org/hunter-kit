@@ -19,7 +19,7 @@ export default function Recon() {
   const getDetails = async () => {
     const res = await window.electron.ipcRenderer.invoke(
       'get-project-detailss',
-      'onboardbase',
+      'zJunior',
     );
     setDetails(res);
   };
@@ -35,8 +35,7 @@ export default function Recon() {
             <CardHeader>
               <CardTitle>Find Subdomains</CardTitle>
               <CardDescription>
-                This will run a job to get all sub-domians for this project
-                domain
+                Enumurate all subdomains of your target.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex justify-between">
@@ -54,11 +53,17 @@ export default function Recon() {
             <CardHeader>
               <CardTitle>Find live Subdomains</CardTitle>
               <CardDescription>
-                This will run a job to get all live sub-domians for this project
-                domain
+                Check which subdomains are live ?
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex justify-end">
+            <CardContent className="flex justify-between">
+              {details && (
+                <div className="flex flex-col space-x-2">
+                  <h1 className="flex flex-col font-semibold">
+                    Last Run <span>{details.recon?.liveDomains?.date}</span>
+                  </h1>
+                </div>
+              )}
               <LiveSubdomainsJob />
             </CardContent>
           </Card>
@@ -66,11 +71,17 @@ export default function Recon() {
             <CardHeader>
               <CardTitle>Get Screenshots</CardTitle>
               <CardDescription>
-                This will run a job to get screenshots for all sub-domians for
-                this project domain
+                See what is your target look like ?
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex justify-end">
+            <CardContent className="flex justify-between">
+              {details && (
+                <div className="flex flex-col space-x-2">
+                  <h1 className="flex flex-col font-semibold">
+                    Last Run <span>{details.recon?.screens?.date}</span>
+                  </h1>
+                </div>
+              )}
               <HttpxScreensJob />
             </CardContent>
           </Card>
@@ -78,34 +89,45 @@ export default function Recon() {
             <CardHeader>
               <CardTitle>Get Archive</CardTitle>
               <CardDescription>
-                This will run a job to get Archive for this project domain
+                Crawl all the URLs of your target from the wayback machine.
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex justify-end">
+            <CardContent className="flex justify-between">
+              {details && (
+                <div className="flex flex-col space-x-2">
+                  <h1 className="flex flex-col font-semibold">Last Run</h1>
+                </div>
+              )}
               <WaybackurlsArchiveJob />
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
               <CardTitle>Get Js Files</CardTitle>
-              <CardDescription>
-                This will run a job to get Js Fils for all sub-domians for this
-                this project domain
-              </CardDescription>
+              <CardDescription>Get all the js.</CardDescription>
             </CardHeader>
-            <CardContent className="flex justify-end">
+            <CardContent className="flex justify-between">
+              {details && (
+                <div className="flex flex-col space-x-2">
+                  <h1 className="flex flex-col font-semibold">Last Run</h1>
+                </div>
+              )}
               <WaybackurlsJsJob />
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
               <CardTitle>Get Parameters</CardTitle>
-              <CardDescription>
-                This will run a job to get Parameters for this this project this
-                this project domain
-              </CardDescription>
+              <CardDescription>Get all the Parameters.</CardDescription>
             </CardHeader>
-            <CardContent className="flex justify-end">
+            <CardContent className="flex justify-between">
+              {details && (
+                <div className="flex flex-col space-x-2">
+                  <h1 className="flex flex-col font-semibold">
+                    Last Run <span>{details.recon?.params?.date}</span>
+                  </h1>
+                </div>
+              )}
               <WaybackurlsParameterJob />
             </CardContent>
           </Card>

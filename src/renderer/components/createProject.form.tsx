@@ -94,7 +94,7 @@ export function CreateProjectForm() {
             <FormItem>
               <FormLabel>Domain</FormLabel>
               <FormControl>
-                <Input placeholder="tesla.com" {...field} />
+                <Input placeholder="ex:tesla.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
