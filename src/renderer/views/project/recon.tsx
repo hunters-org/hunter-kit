@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -16,16 +17,18 @@ import { ProjectDetails } from '../../types';
 
 export default function Recon() {
   const [details, setDetails] = useState<ProjectDetails>();
+  const { projectSlug } = useParams();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getDetails = async () => {
     const res = await window.electron.ipcRenderer.invoke(
       'get-project-detailss',
-      'zJunior',
+      projectSlug,
     );
     setDetails(res);
   };
   useEffect(() => {
     getDetails();
-  }, []);
+  }, [getDetails]);
   return (
     <div className="flex flex-col gap-4">
       <h1 className="font-bold text-3xl">Initiate Recon Attacks</h1>
