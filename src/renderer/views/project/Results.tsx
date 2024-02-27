@@ -7,15 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from '../../components/ui/card';
-import SubFinderJob from './jobs/subfinder';
-import LiveSubdomainsJob from './jobs/liveSubDomains';
-import HttpxScreensJob from './jobs/httpxScreens';
-import WaybackurlsArchiveJob from './jobs/waybackurlsArchive';
-import WaybackurlsJsJob from './jobs/waybackurlsJs';
-import WaybackurlsParameterJob from './jobs/waybackurlsParameter';
+import SubDomainsResults from './jobs/Results/SubDomainsResults';
 import { ProjectDetails } from '../../types';
 
-export default function Recon() {
+export default function Results() {
   const [details, setDetails] = useState<ProjectDetails>();
   const { projectSlug } = useParams();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,33 +26,33 @@ export default function Recon() {
   }, [getDetails]);
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="font-bold text-3xl">Initiate Recon Attacks</h1>
+      <h1 className="font-bold text-3xl">Results</h1>
       <div>
         <div className="grid grid-flow-row grid-cols-2 gap-4">
           <Card>
             <CardHeader>
-              <CardTitle>Find Subdomains</CardTitle>
-              <CardDescription>
-                Enumurate all subdomains of your target.
-              </CardDescription>
+              <CardTitle>Subdomains</CardTitle>
+              <CardDescription>all subdomains of your target.</CardDescription>
             </CardHeader>
             <CardContent className="flex justify-between">
               {details && (
-                <div className="flex flex-col space-x-2">
+                <div className="flex flex-col space-x">
                   <h1 className="flex flex-col font-semibold">
-                    Last Run <span>{details.recon?.subfinder?.date ?? ''}</span>
+                    Last Run <span>{details.recon?.subfinder?.date}</span>
+                  </h1>
+                  <h1 className="flex flex-col font-semibold">
+                    No. of Subdomains found:
+                    <span>{details.recon?.subfinder?.result || '0'}</span>
                   </h1>
                 </div>
               )}
-              <SubFinderJob />
+              <SubDomainsResults />
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Find live Subdomains</CardTitle>
-              <CardDescription>
-                Check which subdomains are live ?
-              </CardDescription>
+              <CardTitle>Live Subdomains</CardTitle>
+              <CardDescription>all subdomains of your target.</CardDescription>
             </CardHeader>
             <CardContent className="flex justify-between">
               {details && (
@@ -68,15 +63,13 @@ export default function Recon() {
                   </h1>
                 </div>
               )}
-              <LiveSubdomainsJob />
+              <SubDomainsResults />
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Get Screenshots</CardTitle>
-              <CardDescription>
-                See what is your target look like ?
-              </CardDescription>
+              <CardTitle>Screenshots</CardTitle>
+              <CardDescription>what is your target look like.</CardDescription>
             </CardHeader>
             <CardContent className="flex justify-between">
               {details && (
@@ -86,14 +79,28 @@ export default function Recon() {
                   </h1>
                 </div>
               )}
-              <HttpxScreensJob />
+              <SubDomainsResults />
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Get Archive</CardTitle>
+              <CardTitle>Archive</CardTitle>
+              <CardDescription>Archive of your target.</CardDescription>
+            </CardHeader>
+            <CardContent className="flex justify-between">
+              {details && (
+                <div className="flex flex-col space-x-2">
+                  <h1 className="flex flex-col font-semibold">Last Run</h1>
+                </div>
+              )}
+              <SubDomainsResults />
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Js Files</CardTitle>
               <CardDescription>
-                Crawl all the URLs of your target from the wayback machine.
+                all the js files of your target.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex justify-between">
@@ -102,27 +109,15 @@ export default function Recon() {
                   <h1 className="flex flex-col font-semibold">Last Run</h1>
                 </div>
               )}
-              <WaybackurlsArchiveJob />
+              <SubDomainsResults />
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Get Js Files</CardTitle>
-              <CardDescription>Get all the js.</CardDescription>
-            </CardHeader>
-            <CardContent className="flex justify-between">
-              {details && (
-                <div className="flex flex-col space-x-2">
-                  <h1 className="flex flex-col font-semibold">Last Run</h1>
-                </div>
-              )}
-              <WaybackurlsJsJob />
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle>Get Parameters</CardTitle>
-              <CardDescription>Get all the Parameters.</CardDescription>
+              <CardTitle>Parameters</CardTitle>
+              <CardDescription>
+                all the Parameters of your target.
+              </CardDescription>
             </CardHeader>
             <CardContent className="flex justify-between">
               {details && (
@@ -132,7 +127,7 @@ export default function Recon() {
                   </h1>
                 </div>
               )}
-              <WaybackurlsParameterJob />
+              <SubDomainsResults />
             </CardContent>
           </Card>
         </div>

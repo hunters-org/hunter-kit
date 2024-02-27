@@ -4,7 +4,7 @@ import { ThemeProvider } from '@primer/react-brand';
 import { Banner } from './components/Banner';
 import { Dashboard } from './views/Dashboard';
 import { Toaster } from './components/ui/toaster';
-import Results from './views/project/result';
+import Results from './views/project/Results';
 import { ProjectLayout } from './layout/projectLayout';
 import Status from './views/project/status';
 import Recon from './views/project/recon';

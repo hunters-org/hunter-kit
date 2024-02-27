@@ -11,7 +11,7 @@ export function wwayback(outputDir: string = PROJECT_DIR): {
   const wwaybackPath = toolPath('waybackurls');
   const command = `cat "${path.join(
     outputDir,
-    'recon_subdomins.txt',
+    'httpx_live_domains.txt',
   )}" | ${wwaybackPath} >> ${path.join(outputDir, 'waybackurls_archive.txt')}`;
 
   //  'type "D:\\recon_result\\domains.txt" | D:\\05-Haitham\\Projects\\hunter\\bin\\waybackurls >> "D:\\recon_result\\archive.txt"';
@@ -31,7 +31,7 @@ export function fetchJs(outputDir: string = PROJECT_DIR): {
   const wwaybackPath = toolPath('waybackurls');
   const command = `cat "${path.join(
     outputDir,
-    'recon_subdomins.txt',
+    'waybackurls_archive.txt',
   )}" | ${wwaybackPath} | findstr ".js" >> ${path.join(outputDir, 'waybackurls_js.txt')}`;
   try {
     execSync(command);
@@ -49,7 +49,7 @@ export function parameter(outputDir: string = PROJECT_DIR): {
 
   const command = `cat "${path.join(
     outputDir,
-    'recon_subdomins.txt',
+    'waybackurls_archive.txt',
   )}" | ${wwaybackPath} | findstr "=" >> ${path.join(
     outputDir,
     'waybackurls_parameter.txt',
