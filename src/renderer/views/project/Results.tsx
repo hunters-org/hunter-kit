@@ -42,7 +42,7 @@ export default function Results() {
                   </h1>
                   <h1 className="flex flex-col font-semibold">
                     No. of Subdomains found:
-                    <span>{details.recon?.subfinder?.result}</span>
+                    <span>{details.recon?.subfinder?.result || '0'}</span>
                   </h1>
                 </div>
               )}
@@ -58,7 +58,8 @@ export default function Results() {
               {details && (
                 <div className="flex flex-col space-x-2">
                   <h1 className="flex flex-col font-semibold">
-                    Last Run <span>{details.recon?.liveDomains?.date}</span>
+                    Last Run
+                    <span>{details.recon?.liveDomains?.date ?? ''}</span>
                   </h1>
                 </div>
               )}
@@ -74,7 +75,7 @@ export default function Results() {
               {details && (
                 <div className="flex flex-col space-x-2">
                   <h1 className="flex flex-col font-semibold">
-                    Last Run <span>{details.recon?.screens?.date}</span>
+                    Last Run <span>{details.recon?.screens?.date ?? ''}</span>
                   </h1>
                 </div>
               )}
@@ -122,7 +123,7 @@ export default function Results() {
               {details && (
                 <div className="flex flex-col space-x-2">
                   <h1 className="flex flex-col font-semibold">
-                    Last Run <span>{details.recon?.params?.date}</span>
+                    Last Run <span>{details.recon?.params?.date ?? ''}</span>
                   </h1>
                 </div>
               )}

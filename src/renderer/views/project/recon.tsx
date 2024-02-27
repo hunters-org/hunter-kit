@@ -45,7 +45,7 @@ export default function Recon() {
               {details && (
                 <div className="flex flex-col space-x-2">
                   <h1 className="flex flex-col font-semibold">
-                    Last Run <span>{details.recon?.subfinder?.date}</span>
+                    Last Run <span>{details.recon?.subfinder?.date ?? ''}</span>
                   </h1>
                 </div>
               )}
@@ -63,7 +63,8 @@ export default function Recon() {
               {details && (
                 <div className="flex flex-col space-x-2">
                   <h1 className="flex flex-col font-semibold">
-                    Last Run <span>{details.recon?.liveDomains?.date}</span>
+                    Last Run
+                    <span>{details.recon?.liveDomains?.date ?? ''}</span>
                   </h1>
                 </div>
               )}
@@ -81,7 +82,7 @@ export default function Recon() {
               {details && (
                 <div className="flex flex-col space-x-2">
                   <h1 className="flex flex-col font-semibold">
-                    Last Run <span>{details.recon?.screens?.date}</span>
+                    Last Run <span>{details.recon?.screens?.date ?? ''}</span>
                   </h1>
                 </div>
               )}
@@ -127,7 +128,7 @@ export default function Recon() {
               {details && (
                 <div className="flex flex-col space-x-2">
                   <h1 className="flex flex-col font-semibold">
-                    Last Run <span>{details.recon?.params?.date}</span>
+                    Last Run <span>{details.recon?.params?.date ?? ''}</span>
                   </h1>
                 </div>
               )}
