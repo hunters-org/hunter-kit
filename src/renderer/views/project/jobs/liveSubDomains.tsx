@@ -9,7 +9,6 @@ import { ProjectDetails } from '../../../types';
 
 export default function LiveSubdomainsJob(details: ProjectDetails) {
   const { name } = details;
-
   const [Loading, setLoading] = useState<boolean>(false);
   const { toast } = useToast();
   const RunLiveSubDomains = async () => {

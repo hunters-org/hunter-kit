@@ -6,12 +6,12 @@ import { JobDetails } from '../types';
 export interface ProjectDetails {
   name: string;
   domain: string;
-  recon?: {
-    subfinder?: JobDetails;
-    screens?: JobDetails;
-    params?: JobDetails;
-    liveDomains?: JobDetails;
-  };
+  subfinder?: JobDetails;
+  screens?: JobDetails;
+  params?: JobDetails;
+  liveDomains?: JobDetails;
+  archive?: JobDetails;
+  js?: JobDetails;
   updatedAt: Date;
 }
 

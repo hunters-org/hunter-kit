@@ -17,15 +17,14 @@ export type JobDetails = {
   result?: number | string;
   date: string;
 };
-
 export interface ProjectDetails {
   name: string;
   domain: string;
-  recon?: {
-    subfinder?: JobDetails;
-    screens?: JobDetails;
-    params?: JobDetails;
-    liveDomains?: JobDetails;
-  };
-  updatedAt: string;
+  subfinder?: JobDetails;
+  screens?: JobDetails;
+  params?: JobDetails;
+  liveDomains?: JobDetails;
+  archive?: JobDetails;
+  js?: JobDetails;
+  updatedAt: Date;
 }

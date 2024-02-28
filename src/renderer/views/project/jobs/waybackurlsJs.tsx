@@ -3,7 +3,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useState } from 'react';
 import { Loader2 } from 'lucide-react';
-import { useParams } from 'react-router-dom';
 import { Button } from '../../../components/ui/button';
 import { useToast } from '../../../components/ui/use-toast';
 import { ProjectDetails } from '../../../types';
@@ -18,9 +17,14 @@ export default function WaybackurlsJsJob(details: ProjectDetails) {
     const res = await window.electron.ipcRenderer.invoke('waybackurls-js', {
       projectName: name,
     });
-    if (res) {
+    if (res.success) {
       toast({
         title: 'Js Files is ready',
+      });
+    } else {
+      toast({
+        title: res.message,
+        variant: 'destructive',
       });
     }
     setLoading(false);

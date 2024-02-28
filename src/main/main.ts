@@ -12,6 +12,7 @@ import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import os from 'node:os';
 import MenuBuilder from './menu';
 import { initProjectDir, resolveHtmlPath } from './util';
 import { subFinder } from './recon/subfinder';
@@ -130,11 +131,22 @@ const createWindow = async () => {
     return path.join(RESOURCES_PATH, ...paths);
   };
 
+  function selectAppIcon(): string {
+    switch (os.platform()) {
+      case 'win32':
+        return getAssetPath('icon.ico');
+      case 'darwin':
+        return getAssetPath('logo.icns');
+      default:
+        return getAssetPath('logo.png');
+    }
+  }
+
   mainWindow = new BrowserWindow({
     show: false,
     width: 1400,
     height: 900,
-    icon: getAssetPath('icon.png'),
+    icon: selectAppIcon(),
     webPreferences: {
       nodeIntegration: true,
       preload: app.isPackaged

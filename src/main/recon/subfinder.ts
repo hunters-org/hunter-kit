@@ -34,13 +34,11 @@ export async function subFinder(
     const domainsFound = resultFromStd(res.stderr, /\bFound (\d+) subdomains?/);
     const db = connectJson(path.join(`${outputDir}/details.json`));
     await db.update({
-      recon: {
-        subfinder: {
-          result: parseInt(domainsFound, 10),
-          run: true,
-          filePath: '',
-          date: new Date(Date.now()).toUTCString(),
-        },
+      subfinder: {
+        result: parseInt(domainsFound, 10),
+        run: true,
+        filePath: '',
+        date: new Date(Date.now()).toUTCString(),
       },
     });
     return { message: 'Done', success: true, error: '' };

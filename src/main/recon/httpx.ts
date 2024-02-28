@@ -1,34 +1,49 @@
 import util from 'util';
 import { exec } from 'child_process';
 import path from 'path';
-import { toolPath } from '../util';
+import { resultFromStd, toolPath } from '../util';
 import { PROJECT_DIR } from '../api/project';
+import { connectJson } from '../db/connect';
 
 const execAsync = util.promisify(exec);
 
-export function liveSubDomains(outputDir: string = PROJECT_DIR): {
+export async function liveSubDomains(outputDir: string = PROJECT_DIR): Promise<{
   message: string;
   success: boolean;
   error: any;
-} {
+}> {
   const httprobeWPath = toolPath('httpx');
   const command = `${httprobeWPath} -l ${path.join(
     outputDir,
     'recon_subdomins.txt',
   )} -o ${path.join(outputDir, 'httpx_live_domains.txt')}`;
   try {
-    execAsync(command);
-    return { message: 'Done', success: true, error: '' };
+    exec(command, (err, std, str) => {
+      console.log(str);
+    });
+    // console.log('Execution result:', res);
+    // const domainsFound = resultFromStd(res.stderr, /\bFound (\d+) subdomains?/);
+    const db = connectJson(path.join(`${outputDir}/details.json`));
+    await db.update({
+      liveDomains: {
+        result: parseInt('213', 10),
+        run: true,
+        filePath: '',
+        date: new Date(Date.now()).toUTCString(),
+      },
+    });
+    return { message: 'Done', success: true, error: null };
   } catch (error) {
+    console.error('Error occurred:', error);
     return { message: 'Error', success: false, error };
   }
 }
-
-export function screenwin(outputDir: string = PROJECT_DIR): {
+liveSubDomains(`${PROJECT_DIR}/kroking`);
+export async function screenwin(outputDir: string = PROJECT_DIR): Promise<{
   message: string;
   success: boolean;
   error: any;
-} {
+}> {
   const httpxPath = toolPath('httpx');
 
   const command = `${httpxPath} -ss -l ${path.join(
@@ -36,9 +51,19 @@ export function screenwin(outputDir: string = PROJECT_DIR): {
     'httpx_live_domains.txt',
   )} -srd ${path.join(outputDir, 'httpx_screen')}`;
   try {
-    execAsync(command);
+    const res = await execAsync(command);
+    const domainsFound = resultFromStd(res.stderr, /\bFound (\d+) subdomains?/);
+    const db = connectJson(path.join(`${outputDir}/details.json`));
+    await db.update({
+      screens: {
+        result: parseInt(domainsFound, 10),
+        run: true,
+        filePath: '',
+        date: new Date(Date.now()).toUTCString(),
+      },
+    });
     return { message: 'Done', success: true, error: '' };
-  } catch (error) {
+  } catch (error: any) {
     return { message: 'Error', success: false, error };
   }
 }

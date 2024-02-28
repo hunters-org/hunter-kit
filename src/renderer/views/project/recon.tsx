@@ -2,6 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { formatDistanceToNow } from 'date-fns';
 import {
   Card,
   CardContent,
@@ -27,6 +28,7 @@ export default function Recon() {
       projectSlug,
     );
     setDetails(res);
+    console.log(res);
   };
 
   useEffect(() => {
@@ -48,10 +50,14 @@ export default function Recon() {
               <CardContent className="flex justify-between">
                 {details && (
                   <div className="flex flex-col space-x-2">
-                    <h1 className="flex flex-col font-semibold">
-                      Last Run{' '}
-                      <span>{details.recon?.subfinder?.date ?? ''}</span>
-                    </h1>
+                    {details?.subfinder?.date && (
+                      <h1 className="flex flex-col font-semibold">
+                        Last Run{' '}
+                        <span>
+                          {formatDistanceToNow(details?.subfinder?.date)}
+                        </span>
+                      </h1>
+                    )}
                   </div>
                 )}
                 <SubFinderJob {...details} />
@@ -61,16 +67,20 @@ export default function Recon() {
               <CardHeader>
                 <CardTitle>Find live Subdomains</CardTitle>
                 <CardDescription>
-                  Check which subdomains are live ?
+                  Check which subdomains are live?
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex justify-between">
                 {details && (
                   <div className="flex flex-col space-x-2">
-                    <h1 className="flex flex-col font-semibold">
-                      Last Run
-                      <span>{details.recon?.liveDomains?.date ?? ''}</span>
-                    </h1>
+                    {details?.liveDomains?.date && (
+                      <h1 className="flex flex-col font-semibold">
+                        Last Run{' '}
+                        <span>
+                          {formatDistanceToNow(details.liveDomains.date)}
+                        </span>
+                      </h1>
+                    )}
                   </div>
                 )}
                 <LiveSubdomainsJob {...details} />
@@ -86,9 +96,12 @@ export default function Recon() {
               <CardContent className="flex justify-between">
                 {details && (
                   <div className="flex flex-col space-x-2">
-                    <h1 className="flex flex-col font-semibold">
-                      Last Run <span>{details.recon?.screens?.date ?? ''}</span>
-                    </h1>
+                    {details?.screens?.date && (
+                      <h1 className="flex flex-col font-semibold">
+                        Last Run{' '}
+                        <span>{formatDistanceToNow(details.screens.date)}</span>
+                      </h1>
+                    )}
                   </div>
                 )}
                 <HttpxScreensJob {...details} />
@@ -104,7 +117,12 @@ export default function Recon() {
               <CardContent className="flex justify-between">
                 {details && (
                   <div className="flex flex-col space-x-2">
-                    <h1 className="flex flex-col font-semibold">Last Run</h1>
+                    {details?.archive?.date && (
+                      <h1 className="flex flex-col font-semibold">
+                        Last Run{' '}
+                        <span>{formatDistanceToNow(details.archive.date)}</span>
+                      </h1>
+                    )}
                   </div>
                 )}
                 <WaybackurlsArchiveJob {...details} />
@@ -118,7 +136,12 @@ export default function Recon() {
               <CardContent className="flex justify-between">
                 {details && (
                   <div className="flex flex-col space-x-2">
-                    <h1 className="flex flex-col font-semibold">Last Run</h1>
+                    {details?.js?.date && (
+                      <h1 className="flex flex-col font-semibold">
+                        Last Run{' '}
+                        <span>{formatDistanceToNow(details.js.date)}</span>
+                      </h1>
+                    )}
                   </div>
                 )}
                 <WaybackurlsJsJob {...details} />
@@ -132,9 +155,12 @@ export default function Recon() {
               <CardContent className="flex justify-between">
                 {details && (
                   <div className="flex flex-col space-x-2">
-                    <h1 className="flex flex-col font-semibold">
-                      Last Run <span>{details.recon?.params?.date ?? ''}</span>
-                    </h1>
+                    {details?.params?.date && (
+                      <h1 className="flex flex-col font-semibold">
+                        Last Run{' '}
+                        <span>{formatDistanceToNow(details.params.date)}</span>
+                      </h1>
+                    )}
                   </div>
                 )}
                 <WaybackurlsParameterJob {...details} />

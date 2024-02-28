@@ -21,9 +21,14 @@ export default function WaybackurlsParameterJob(details: ProjectDetails) {
         projectName: name,
       },
     );
-    if (res) {
+    if (res.success) {
       toast({
         title: 'Parameters are ready',
+      });
+    } else {
+      toast({
+        title: res.message,
+        variant: 'destructive',
       });
     }
     setLoading(false);

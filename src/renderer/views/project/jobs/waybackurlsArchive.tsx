@@ -21,9 +21,14 @@ export default function WaybackurlsArchiveJob(details: ProjectDetails) {
         projectName: name,
       },
     );
-    if (res) {
+    if (res.success) {
       toast({
-        title: 'Archive is ready',
+        title: 'Archive urls is ready',
+      });
+    } else {
+      toast({
+        title: res.message,
+        variant: 'destructive',
       });
     }
     setLoading(false);
