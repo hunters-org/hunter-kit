@@ -13,7 +13,7 @@ export type Channels =
   | 'waybackurls-js'
   | 'waybackurls-parameter'
   | 'get-project-details'
-  | 'get-project-detailss';
+  | 'api-call';
 
 const electronHandler = {
   ipcRenderer: {

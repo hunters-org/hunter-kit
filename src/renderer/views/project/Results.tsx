@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
@@ -16,14 +17,20 @@ export default function Results() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getDetails = async () => {
     const res = await window.electron.ipcRenderer.invoke(
-      'get-project-detailss',
+      'get-project-details',
       projectSlug,
     );
+    const ress = await window.electron.ipcRenderer.invoke('api-call', {
+      projectName: projectSlug,
+      location: 'httpx_screen/screenshot/screenshot.html',
+      type: 'text/html',
+    });
+    console.log(ress);
     setDetails(res);
   };
   useEffect(() => {
     getDetails();
-  }, [getDetails]);
+  }, []);
   return (
     <div className="flex flex-col gap-4">
       <h1 className="font-bold text-3xl">Results</h1>
@@ -38,11 +45,11 @@ export default function Results() {
               {details && (
                 <div className="flex flex-col space-x">
                   <h1 className="flex flex-col font-semibold">
-                    Last Run <span>{details.recon?.subfinder?.date}</span>
+                    Last Run <span>{details.subfinder?.date}</span>
                   </h1>
                   <h1 className="flex flex-col font-semibold">
                     No. of Subdomains found:
-                    <span>{details.recon?.subfinder?.result || '0'}</span>
+                    <span>{details.subfinder?.result || '0'}</span>
                   </h1>
                 </div>
               )}

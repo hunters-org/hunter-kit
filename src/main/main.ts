@@ -25,6 +25,7 @@ import {
 } from './api/project';
 import { liveSubDomains, screenwin } from './recon/httpx';
 import { fetchJs, parameter, wwayback } from './recon/waybackurls';
+import { returnFile } from './api/serve';
 
 class AppUpdater {
   constructor() {
@@ -35,6 +36,12 @@ class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
+
+ipcMain.handle('api-call', async (event, args) => {
+  const { projectName, location, type } = args[0];
+  const res = returnFile(`${projectName}/${location}`, type);
+  return res;
+});
 
 ipcMain.handle('subfinder-process', async (event, args) => {
   const { domain, projectName } = args[0];
@@ -154,7 +161,7 @@ const createWindow = async () => {
         : path.join(__dirname, '../../.erb/dll/preload.js'),
     },
   });
-
+  mainWindow.center();
   mainWindow.loadURL(resolveHtmlPath('index.html'));
 
   mainWindow.on('ready-to-show', () => {

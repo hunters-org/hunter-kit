@@ -3,6 +3,7 @@ import path from 'path';
 import { toolPath } from '../util';
 import { PROJECT_DIR } from '../api/project';
 import { connectJson } from '../db/connect';
+import { countLines } from '../results/countResults';
 
 export async function liveSubDomains(outputDir: string = PROJECT_DIR): Promise<{
   message: string;
@@ -16,12 +17,13 @@ export async function liveSubDomains(outputDir: string = PROJECT_DIR): Promise<{
   )} -o ${path.join(outputDir, 'httpx_live_domains.txt')}`;
   try {
     execSync(command);
-    // console.log('Execution result:', res);
-    // const domainsFound = resultFromStd(res.stderr, /\bFound (\d+) subdomains?/);
+    const numberOfUrls = await countLines(
+      path.join(outputDir, 'httpx_live_domains.txt'),
+    );
     const db = connectJson(path.join(`${outputDir}/details.json`));
     await db.update({
       liveDomains: {
-        result: parseInt('213', 10),
+        result: numberOfUrls,
         run: true,
         filePath: '',
         date: new Date(Date.now()).toUTCString(),
@@ -47,10 +49,13 @@ export async function screenwin(outputDir: string = PROJECT_DIR): Promise<{
   )} -srd ${path.join(outputDir, 'httpx_screen')}`;
   try {
     execSync(command);
+    const numberOfScreenShots = await countLines(
+      path.join(outputDir, 'httpx_screen/screenhost/index_screenhost.txt'),
+    );
     const db = connectJson(path.join(`${outputDir}/details.json`));
     await db.update({
       screens: {
-        result: parseInt('12', 10),
+        result: numberOfScreenShots,
         run: true,
         filePath: '',
         date: new Date(Date.now()).toUTCString(),
