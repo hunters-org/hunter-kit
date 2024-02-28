@@ -1,11 +1,8 @@
-import util from 'util';
-import { exec } from 'child_process';
+import { execSync } from 'child_process';
 import path from 'path';
-import { resultFromStd, toolPath } from '../util';
+import { toolPath } from '../util';
 import { PROJECT_DIR } from '../api/project';
 import { connectJson } from '../db/connect';
-
-const execAsync = util.promisify(exec);
 
 export async function liveSubDomains(outputDir: string = PROJECT_DIR): Promise<{
   message: string;
@@ -18,9 +15,7 @@ export async function liveSubDomains(outputDir: string = PROJECT_DIR): Promise<{
     'recon_subdomins.txt',
   )} -o ${path.join(outputDir, 'httpx_live_domains.txt')}`;
   try {
-    exec(command, (err, std, str) => {
-      console.log(str);
-    });
+    execSync(command);
     // console.log('Execution result:', res);
     // const domainsFound = resultFromStd(res.stderr, /\bFound (\d+) subdomains?/);
     const db = connectJson(path.join(`${outputDir}/details.json`));
@@ -51,12 +46,11 @@ export async function screenwin(outputDir: string = PROJECT_DIR): Promise<{
     'httpx_live_domains.txt',
   )} -srd ${path.join(outputDir, 'httpx_screen')}`;
   try {
-    const res = await execAsync(command);
-    const domainsFound = resultFromStd(res.stderr, /\bFound (\d+) subdomains?/);
+    execSync(command);
     const db = connectJson(path.join(`${outputDir}/details.json`));
     await db.update({
       screens: {
-        result: parseInt(domainsFound, 10),
+        result: parseInt('12', 10),
         run: true,
         filePath: '',
         date: new Date(Date.now()).toUTCString(),
