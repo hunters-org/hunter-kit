@@ -47,22 +47,18 @@ export async function screenwin(outputDir: string = PROJECT_DIR): Promise<{
     outputDir,
     'httpx_live_domains.txt',
   )} -srd ${path.join(outputDir, 'httpx_screen')}`;
-  try {
-    execSync(command);
-    const numberOfScreenShots = await countLines(
-      path.join(outputDir, 'httpx_screen/screenhost/index_screenhost.txt'),
-    );
-    const db = connectJson(path.join(`${outputDir}/details.json`));
-    await db.update({
-      screens: {
-        result: numberOfScreenShots,
-        run: true,
-        filePath: '',
-        date: new Date(Date.now()).toUTCString(),
-      },
-    });
-    return { message: 'Done', success: true, error: '' };
-  } catch (error: any) {
-    return { message: 'Error', success: false, error };
-  }
+  execSync(command);
+  const numberOfScreenShots = await countLines(
+    path.join(outputDir, 'httpx_screen/screenshot/index_screenshot.txt'),
+  );
+  const db = connectJson(path.join(`${outputDir}/details.json`));
+  await db.update({
+    screens: {
+      result: numberOfScreenShots,
+      run: true,
+      filePath: '',
+      date: new Date(Date.now()).toUTCString(),
+    },
+  });
+  return { message: 'Done', success: true, error: '' };
 }
