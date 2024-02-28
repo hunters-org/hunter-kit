@@ -18,7 +18,7 @@ export type JobDetails = {
   date: string;
 };
 
-export type ProjectDetails = {
+export interface ProjectDetails {
   name: string;
   domain: string;
   recon?: {
@@ -27,4 +27,5 @@ export type ProjectDetails = {
     params?: JobDetails;
     liveDomains?: JobDetails;
   };
-};
+  updatedAt: string;
+}

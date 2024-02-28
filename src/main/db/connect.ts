@@ -12,9 +12,10 @@ export interface ProjectDetails {
     params?: JobDetails;
     liveDomains?: JobDetails;
   };
+  updatedAt: Date;
 }
 
-export function connectJson<_T = ProjectDetails>(path: PathLike) {
-  const db = new JSONDB<_T>(path);
+export function connectJson(path: PathLike) {
+  const db = new JSONDB<ProjectDetails>(path);
   return db;
 }

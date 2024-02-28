@@ -39,12 +39,6 @@ export function createJsonFile(name: string, domain: string) {
   const obj = {
     name,
     domain,
-    subFinder: defaultToolObj(),
-    liveDomains: defaultToolObj(),
-    screenWin: defaultToolObj(),
-    archive: defaultToolObj(),
-    waybackurls_js: defaultToolObj(),
-    waybackurls_parameter: defaultToolObj(),
   };
   const stringifyObj = JSON.stringify(obj);
   try {
@@ -73,21 +67,9 @@ export function appendDateToJson(projectName: string, data: Object) {
 
 export function projectDetails(projectName: string) {
   try {
-    const blob = fs.readFileSync(
-      `${PROJECT_DIR}/${projectName}/details.json`,
-      'utf-8',
-    );
-    return JSON.parse(blob);
-  } catch (error) {
-    throw new Error('a7aa');
-  }
-}
-
-export function projectDetailss(projectName: string) {
-  try {
     const db = connectJson(`${PROJECT_DIR}/${projectName}/details.json`);
     return db.read();
   } catch (error) {
-    throw new Error('a7aa');
+    throw new Error('Project Cannot be created');
   }
 }

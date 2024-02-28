@@ -8,31 +8,20 @@ import { Button } from '../../../components/ui/button';
 import { useToast } from '../../../components/ui/use-toast';
 import { ProjectDetails } from '../../../types';
 
-export default function WaybackurlsJsJob() {
-  const { projectSlug } = useParams();
-  const [projectDetails, setDetails] = useState<ProjectDetails>();
-  useEffect(() => {
-    const details: ProjectDetails = window.electron.ipcRenderer.sendSync(
-      'get-project-details',
-      projectSlug,
-    );
-    setDetails(details);
-  }, []);
+export default function WaybackurlsJsJob(details: ProjectDetails) {
+  const { name } = details;
 
   const [Loading, setLoading] = useState<boolean>(false);
   const { toast } = useToast();
-  const RunWaybackurlsJs = () => {
+  const RunWaybackurlsJs = async () => {
     setLoading(true);
-    if (projectDetails) {
-      const res = window.electron.ipcRenderer.sendSync('waybackurls-js', {
-        projectName: projectDetails.name,
-        domain: projectDetails.domain,
+    const res = await window.electron.ipcRenderer.invoke('waybackurls-js', {
+      projectName: name,
+    });
+    if (res) {
+      toast({
+        title: 'Js Files is ready',
       });
-      if (res) {
-        toast({
-          title: 'Js Files is ready',
-        });
-      }
     }
     setLoading(false);
   };

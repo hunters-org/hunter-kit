@@ -1,39 +1,29 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
-import { useParams } from 'react-router-dom';
 import { Button } from '../../../components/ui/button';
 import { useToast } from '../../../components/ui/use-toast';
 import { ProjectDetails } from '../../../types';
 
-export default function SubFinderJob() {
-  const { projectSlug } = useParams();
-  const [projectDetails, setDetails] = useState<ProjectDetails>();
-  useEffect(() => {
-    const details: ProjectDetails = window.electron.ipcRenderer.sendSync(
-      'get-project-details',
-      projectSlug,
-    );
-    setDetails(details);
-  }, []);
-
+export default function SubFinderJob(details: ProjectDetails) {
+  const { name, domain } = details;
   const [Loading, setLoading] = useState<boolean>(false);
   const { toast } = useToast();
   const RunSubFinder = async () => {
     setLoading(true);
-    if (projectDetails) {
+    if (details) {
       const res = await window.electron.ipcRenderer.invoke(
         'subfinder-process',
         {
-          projectName: projectDetails.name,
-          domain: projectDetails.domain,
+          projectName: name,
+          domain,
         },
       );
       if (res) {
         toast({
-          title: 'sub-domains job finished',
+          title: 'sub-domains job compeleted',
         });
       }
     }

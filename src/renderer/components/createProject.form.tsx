@@ -54,7 +54,7 @@ export function CreateProjectForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const res = await window.electron.ipcRenderer.sendSync(
+    const res = await window.electron.ipcRenderer.invoke(
       'create-project',
       values,
     );

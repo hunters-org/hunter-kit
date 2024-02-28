@@ -20,7 +20,6 @@ import {
   createJsonFile,
   createProjectDir,
   projectDetails,
-  projectDetailss,
   readDirectoryNames,
 } from './api/project';
 import { liveSubDomains, screenwin } from './recon/httpx';
@@ -41,61 +40,55 @@ ipcMain.handle('subfinder-process', async (event, args) => {
   const res = subFinder(domain, `${PROJECT_DIR}/${projectName}`);
   return res;
 });
-ipcMain.on('httpx-live-domain', async (event, args) => {
+ipcMain.handle('httpx-live-domain', async (event, args) => {
   const { projectName } = args[0];
   const res = liveSubDomains(`${PROJECT_DIR}/${projectName}`);
-  event.returnValue = res;
+  return res;
 });
-ipcMain.on('httpx-screens', async (event, args) => {
+ipcMain.handle('httpx-screens', async (event, args) => {
   const { projectName } = args[0];
   const res = screenwin(`${PROJECT_DIR}/${projectName}`);
-  event.returnValue = res;
+  return res;
 });
-ipcMain.on('waybackurls-archive', async (event, args) => {
+ipcMain.handle('waybackurls-archive', async (event, args) => {
   const { projectName } = args[0];
   const res = wwayback(`${PROJECT_DIR}/${projectName}`);
-  event.returnValue = res;
+  return res;
 });
-ipcMain.on('waybackurls-js', async (event, args) => {
+ipcMain.handle('waybackurls-js', async (event, args) => {
   const { projectName } = args[0];
   const res = fetchJs(`${PROJECT_DIR}/${projectName}`);
-  event.returnValue = res;
+  return res;
 });
-ipcMain.on('waybackurls-parameter', async (event, args) => {
+ipcMain.handle('waybackurls-parameter', async (event, args) => {
   const { projectName } = args[0];
   const res = parameter(`${PROJECT_DIR}/${projectName}`);
-  event.returnValue = res;
+  return res;
 });
 
-ipcMain.on('get-project-dir', async (event) => {
-  event.returnValue = PROJECT_DIR;
+ipcMain.handle('get-project-dir', async (event) => {
+  return PROJECT_DIR;
 });
 
-ipcMain.on('get-project-details', async (event, args) => {
+ipcMain.handle('get-project-details', async (event, args) => {
   const projectName = args[0];
   const data = projectDetails(projectName);
-  event.returnValue = data;
-});
-
-ipcMain.handle('get-project-detailss', async (event, args) => {
-  const projectName = args[0];
-  const data = projectDetailss(projectName);
   return data;
 });
 
-ipcMain.on('list-projects', async (event) => {
+ipcMain.handle('list-projects', async (event) => {
   const dirs = readDirectoryNames();
-  event.returnValue = dirs;
+  return dirs;
 });
 
-ipcMain.on('create-project', async (event, args) => {
+ipcMain.handle('create-project', async (event, args) => {
   const { projectName, domain } = args[0];
   try {
     createProjectDir(projectName);
     createJsonFile(projectName, domain);
-    event.returnValue = { error: false };
+    return { error: false };
   } catch (err) {
-    event.returnValue = { error: true };
+    return { error: true };
   }
 });
 

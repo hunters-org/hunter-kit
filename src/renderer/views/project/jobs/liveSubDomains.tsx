@@ -1,38 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
-import { useParams } from 'react-router-dom';
 import { Button } from '../../../components/ui/button';
 import { useToast } from '../../../components/ui/use-toast';
 import { ProjectDetails } from '../../../types';
 
-export default function LiveSubdomainsJob() {
-  const { projectSlug } = useParams();
-  const [projectDetails, setDetails] = useState<ProjectDetails>();
-  useEffect(() => {
-    const details: ProjectDetails = window.electron.ipcRenderer.sendSync(
-      'get-project-details',
-      projectSlug,
-    );
-    setDetails(details);
-  }, []);
+export default function LiveSubdomainsJob(details: ProjectDetails) {
+  const { name } = details;
 
   const [Loading, setLoading] = useState<boolean>(false);
   const { toast } = useToast();
-  const RunLiveSubDomains = () => {
+  const RunLiveSubDomains = async () => {
     setLoading(true);
-    if (projectDetails) {
-      const res = window.electron.ipcRenderer.sendSync('httpx-live-domain', {
-        projectName: projectDetails.name,
-        domain: projectDetails.domain,
+    const res = await window.electron.ipcRenderer.invoke('httpx-live-domain', {
+      projectName: name,
+    });
+    if (res) {
+      toast({
+        title: 'live sub-domains are ready',
       });
-      if (res) {
-        toast({
-          title: 'live sub-domains are ready',
-        });
-      }
     }
     setLoading(false);
   };

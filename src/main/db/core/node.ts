@@ -28,7 +28,14 @@ export class JSONDB<T> {
         return;
       }
       const updatedData = { ...existingData, ...updates };
-      await fs.writeFile(this.filePath, JSON.stringify(updatedData, null, 2));
+      await fs.writeFile(
+        this.filePath,
+        JSON.stringify(
+          { updatedAt: new Date(Date.now()), ...updatedData },
+          null,
+          2,
+        ),
+      );
     } catch (error) {
       console.error('Error updating file:', error);
     }

@@ -43,8 +43,6 @@ export async function subFinder(
         },
       },
     });
-    console.log(await db.read());
-    // appendDateToJson(outputDir, { subFinder: true });
     return { message: 'Done', success: true, error: '' };
   } catch (error: any) {
     return { message: 'Error', success: false, error };

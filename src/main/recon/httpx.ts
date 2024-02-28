@@ -1,7 +1,10 @@
-import { execSync } from 'child_process';
+import util from 'util';
+import { exec } from 'child_process';
 import path from 'path';
 import { toolPath } from '../util';
 import { PROJECT_DIR } from '../api/project';
+
+const execAsync = util.promisify(exec);
 
 export function liveSubDomains(outputDir: string = PROJECT_DIR): {
   message: string;
@@ -14,7 +17,7 @@ export function liveSubDomains(outputDir: string = PROJECT_DIR): {
     'recon_subdomins.txt',
   )} -o ${path.join(outputDir, 'httpx_live_domains.txt')}`;
   try {
-    execSync(command);
+    execAsync(command);
     return { message: 'Done', success: true, error: '' };
   } catch (error) {
     return { message: 'Error', success: false, error };
@@ -33,7 +36,7 @@ export function screenwin(outputDir: string = PROJECT_DIR): {
     'httpx_live_domains.txt',
   )} -srd ${path.join(outputDir, 'httpx_screen')}`;
   try {
-    execSync(command);
+    execAsync(command);
     return { message: 'Done', success: true, error: '' };
   } catch (error) {
     return { message: 'Error', success: false, error };

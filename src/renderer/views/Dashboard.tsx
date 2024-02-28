@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-no-useless-fragment */
 import { useEffect, useState } from 'react';
@@ -22,38 +24,29 @@ import {
 } from '../components/ui/dialog';
 
 import { CreateProjectForm } from '../components/createProject.form';
+import { ProjectCard } from '../components/projectCard';
 
 // eslint-disable-next-line import/prefer-default-export
 export function Dashboard() {
-  const [projects, setProjects] = useState<any>();
-
+  const [projects, setProjects] = useState<string[]>();
   const list = async () => {
-    const res = await window.electron.ipcRenderer.sendSync('list-projects');
-    setProjects(res);
+    try {
+      const projectNames: string[] =
+        await window.electron.ipcRenderer.invoke('list-projects');
+      setProjects(projectNames);
+    } catch (error) {
+      console.error('Error listing projects:', error);
+    }
   };
 
   useEffect(() => {
     list();
   }, []);
+
   return (
     <div className="grid grid-flow-row grid-cols-2 gap-20 container py-10">
-      {projects?.map((project: string) => {
-        return (
-          <Link key={project} to={`/${project}/dashboard`}>
-            <Card className="hover:bg-slate-900 cursor-pointer duration-300">
-              <CardHeader>
-                <CardTitle>{project}</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-              </CardContent>
-              <CardFooter>
-                <p>Card Footer</p>
-              </CardFooter>
-            </Card>
-          </Link>
-        );
+      {projects?.map((project) => {
+        return <ProjectCard name={project} />;
       })}
       <Card className="flex flex-col space-y-4 py-14 justify-center items-center">
         <h1 className="font-bold text-xl">New project</h1>
