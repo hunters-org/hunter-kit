@@ -19,7 +19,7 @@ const ReconTabs: FC<ViewTabsProps> = (props) => {
   const { tab, SubTab, LiveTab, ParamTab, ScreenTab } = useTabs();
 
   return (
-    <div className="flex justify-center ">
+    <div className="">
       <div className="hidden">
         <label htmlFor="tabs" className="sr-only">
           Select a tab
@@ -30,7 +30,7 @@ const ReconTabs: FC<ViewTabsProps> = (props) => {
           className="block w-full rounded-md border-gray-500/20 focus:border-indigo-500 focus:ring-indigo-500"
         />
       </div>
-      <div className="block mb-10">
+      <div className="mb-10 flex justify-center  ">
         <nav
           className="inline-flex gap-4 px-2 py-2 bg-gray-500/5 border border-gray-100/10 rounded-md p-1"
           aria-label="Tabs"
@@ -85,13 +85,15 @@ const ReconTabs: FC<ViewTabsProps> = (props) => {
           </button>
         </nav>
       </div>
-      {tab === 'SUB'
-        ? props.SubComponent
-        : tab === 'LIVESUB'
-          ? props.LiveComponent
-          : tab === 'PARAMS'
-            ? props.ParamsComponent
-            : props.ScreensComponent}
+      <div className=" overflow-y-hidden">
+        {tab === 'SUB'
+          ? props.SubComponent
+          : tab === 'LIVESUB'
+            ? props.LiveComponent
+            : tab === 'PARAMS'
+              ? props.ParamsComponent
+              : props.ScreensComponent}
+      </div>
     </div>
   );
 };

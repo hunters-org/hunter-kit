@@ -88,6 +88,10 @@ ipcMain.handle('list-projects', async (event) => {
   const dirs = readDirectoryNames();
   return dirs;
 });
+ipcMain.once('open-link', async (event, args) => {
+  const { url } = args[0];
+  shell.openExternal(`https://${url}`);
+});
 
 ipcMain.handle('create-project', async (event, args) => {
   const { projectName, domain } = args[0];
