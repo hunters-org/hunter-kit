@@ -46,7 +46,7 @@ export async function screenwin(outputDir: string = PROJECT_DIR): Promise<{
   const command = `${httpxPath} -ss -l ${path.join(
     outputDir,
     'httpx_live_domains.txt',
-  )} -srd ${path.join(outputDir, 'httpx_screen')}`;
+  )} -srd ${path.join(outputDir, 'httpx_screen')} `;
   execSync(command);
   const numberOfScreenShots = await countLines(
     path.join(outputDir, 'httpx_screen/screenshot/index_screenshot.txt'),

@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 export type DashboardMenu = {
   href: string;
   title: string;
+  Disabled?: boolean;
   icon: ReactNode;
 };
 
@@ -28,3 +29,18 @@ export interface ProjectDetails {
   js?: JobDetails;
   updatedAt: Date;
 }
+
+export type ResultsType = {
+  name: string;
+  where: string;
+  href: string;
+};
+
+export const ReconTab = {
+  SCREEN: 'Screenshots',
+  LIVESUB: 'Live sub-domains',
+  SUB: 'Sub-domains',
+  PARAMS: 'All Params',
+} as const;
+
+export type ReconTabs = keyof typeof ReconTab;

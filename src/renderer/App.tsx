@@ -8,6 +8,7 @@ import Results from './views/project/Results';
 import { ProjectLayout } from './layout/projectLayout';
 import Status from './views/project/status';
 import Recon from './views/project/recon';
+import { ReconResults } from './views/project/results/recon-results';
 
 function Home() {
   return (
@@ -26,8 +27,10 @@ export default function App() {
           <Route path="/projects" element={<Dashboard />} />
           <Route path="/:projectSlug" element={<ProjectLayout />}>
             <Route path="dashboard" element={<Status />} />
-            <Route path="result" element={<Results />} />
             <Route path="recon" element={<Recon />} />
+            <Route path="result" element={<Results />} />
+            <Route path="result-recon" element={<ReconResults />} />
+            <Route path="attack" element={<Results />} />
           </Route>
         </Routes>
       </Router>

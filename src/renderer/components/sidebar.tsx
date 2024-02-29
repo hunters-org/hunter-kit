@@ -32,17 +32,34 @@ const dashboardMenu: DashboardMenu[] = [
   {
     href: 'attack',
     title: 'Attack',
+    Disabled: true,
     icon: <PocketKnife className="mr-2 h-4 w-4" />,
   },
   {
-    href: 'waf',
-    title: 'WAF',
+    href: 'interceptor',
+    title: 'Interceptor',
+    Disabled: true,
     icon: <LayoutDashboardIcon className="mr-2 h-4 w-4" />,
   },
+];
+
+const resultArch: DashboardMenu[] = [
   {
-    href: 'result',
-    title: 'Results',
-    icon: <ActivitySquare className="mr-2 h-4 w-4" />,
+    href: 'result-recon',
+    title: 'RECON',
+    icon: <PocketKnife className="mr-2 h-4 w-4" />,
+  },
+  {
+    href: 'attack-result',
+    title: 'Attack',
+    Disabled: true,
+    icon: <PocketKnife className="mr-2 h-4 w-4" />,
+  },
+  {
+    href: 'interceptor-result',
+    title: 'Interceptor',
+    Disabled: true,
+    icon: <LayoutDashboardIcon className="mr-2 h-4 w-4" />,
   },
 ];
 
@@ -71,6 +88,7 @@ export default function SideBar({ project }: SideBarProps) {
         {dashboardMenu.map((el) => {
           return (
             <Button
+              disabled={el.Disabled}
               className={`flex justify-start
               ${pathname.includes(el.href) ? 'bg-secondary text-primary' : ''}
               `}
@@ -83,14 +101,34 @@ export default function SideBar({ project }: SideBarProps) {
             </Button>
           );
         })}
-        {/* <Accordion asChild type="single" collapsible>
+        <Accordion asChild type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger>Is it accessible?</AccordionTrigger>
-            <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
+            <AccordionTrigger className="flex justify-between items-center border-b-0">
+              <div className="flex justify-center items-center">
+                <ActivitySquare className="mr-2 h-4 w-4" />
+                Results
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="flex flex-col gap-2 w-full">
+              {resultArch.map((el) => {
+                return (
+                  <Button
+                    disabled={el.Disabled}
+                    className={`flex justify-start w-full
+                  ${pathname.includes(el.href) ? 'bg-secondary text-primary' : ''}
+                  `}
+                    variant="ghost"
+                    onClick={() => {
+                      navigate(`${el.href}`);
+                    }}
+                  >
+                    {el.icon} {el.title}
+                  </Button>
+                );
+              })}
             </AccordionContent>
           </AccordionItem>
-        </Accordion> */}
+        </Accordion>
       </nav>
     </div>
   );
