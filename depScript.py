@@ -87,7 +87,7 @@ if __name__ == "__main__":
         {"name": "subfinder", "repo_owner": "projectdiscovery", "repo_name": "subfinder"},
         {"name": "httpx", "repo_owner": "projectdiscovery", "repo_name": "httpx"},
         {"name": "waybackurls", "repo_owner": "tomnomnom", "repo_name": "waybackurls"},
-        {"name": "katana", "repo_owner": "projectdiscovery", "repo_name": "Katana"},
+        {"name": "jsleak", "repo_owner": "0xHunterr", "repo_name": "jsleak"},
         # Add more tools as needed
     ]
 
