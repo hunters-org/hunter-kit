@@ -41,6 +41,12 @@ const dashboardMenu: DashboardMenu[] = [
     Disabled: true,
     icon: <LayoutDashboardIcon className="mr-2 h-4 w-4" />,
   },
+
+  {
+    href: 'jsleaks',
+    title: 'JsLeaks',
+    icon: <LayoutDashboardIcon className="mr-2 h-4 w-4" />,
+  },
 ];
 
 const resultArch: DashboardMenu[] = [
