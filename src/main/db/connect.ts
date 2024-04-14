@@ -8,6 +8,8 @@ export interface ProjectDetails {
   domain: string;
   subfinder?: JobDetails;
   screens?: JobDetails;
+  extraLinks?: JobDetails;
+  findSecrets?: JobDetails;
   params?: JobDetails;
   liveDomains?: JobDetails;
   archive?: JobDetails;

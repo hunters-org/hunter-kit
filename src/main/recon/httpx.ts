@@ -35,7 +35,6 @@ export async function liveSubDomains(outputDir: string = PROJECT_DIR): Promise<{
     return { message: 'Error', success: false, error };
   }
 }
-liveSubDomains(`${PROJECT_DIR}/kroking`);
 export async function screenwin(outputDir: string = PROJECT_DIR): Promise<{
   message: string;
   success: boolean;
