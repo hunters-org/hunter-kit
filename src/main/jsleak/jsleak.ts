@@ -37,8 +37,8 @@ export async function extraLinks(outputDir: string = PROJECT_DIR): Promise<{
   success: boolean;
   error: any;
 }> {
-  const jsleak = toolPath('jsleak_1.0.0_windows');
-  const command = `type ${path.join(outputDir, 'httpx_live_domains.txt')} | ${jsleak} -l | findstr ".js"
+  const jsleak = toolPath('jsleak');
+  const command = `${CurrentOS() === 'win32' ? 'type' : 'cat'} ${path.join(outputDir, 'httpx_live_domains.txt')} | ${jsleak} -l | findstr ".js"
    >> ${path.join(outputDir, 'extra_links.txt')}`;
   try {
     execSync(command);
