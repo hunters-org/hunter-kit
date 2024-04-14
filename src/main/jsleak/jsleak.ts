@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
 import path from 'path';
-import { toolPath } from '../util';
+import { CurrentOS, toolPath } from '../util';
 import { PROJECT_DIR } from '../api/project';
 import { connectJson } from '../db/connect';
 import { countLines } from '../results/countResults';
@@ -10,8 +10,8 @@ export async function findSecret(outputDir: string = PROJECT_DIR): Promise<{
   success: boolean;
   error: any;
 }> {
-  const jsleak = toolPath('jsleak_1.0.0_windows');
-  const command = `type ${path.join(outputDir, 'httpx_live_domains.txt')} | ${jsleak} -s
+  const jsleak = toolPath('jsleak');
+  const command = `${CurrentOS() === 'win32' ? 'type' : 'cat'} ${path.join(outputDir, 'httpx_live_domains.txt')} | ${jsleak} -s
    >> ${path.join(outputDir, 'secrets.txt')}`;
   try {
     execSync(command);
