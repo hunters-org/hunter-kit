@@ -26,6 +26,7 @@ import {
 import { liveSubDomains, screenwin } from './recon/httpx';
 import { fetchJs, parameter, wwayback } from './recon/waybackurls';
 import { returnFile } from './api/serve';
+import { findSecret, extraLinks } from './jsleak/jsleak';
 
 class AppUpdater {
   constructor() {
@@ -43,6 +44,16 @@ ipcMain.handle('api-call', async (event, args) => {
   return res;
 });
 
+ipcMain.handle('find-secrets', async (event, args) => {
+  const { projectName } = args[0];
+  const res = findSecret(`${PROJECT_DIR}/${projectName}`);
+  return res;
+});
+ipcMain.handle('extra-links', async (event, args) => {
+  const { projectName } = args[0];
+  const res = extraLinks(`${PROJECT_DIR}/${projectName}`);
+  return res;
+});
 ipcMain.handle('subfinder-process', async (event, args) => {
   const { domain, projectName } = args[0];
   const res = subFinder(domain, `${PROJECT_DIR}/${projectName}`);
