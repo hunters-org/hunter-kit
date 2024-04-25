@@ -5,13 +5,13 @@ import {
   CardHeader,
   CardTitle,
 } from '../../components/ui/card';
-import Secrets from './JsLeaks Jobs/secrets';
-import EndPoints from './JsLeaks Jobs/EndPoints';
+import Secrets from './jsLeaksJob/secrets';
+import EndPoints from './jsLeaksJob/Endpoint';
 
 export default function JsLeaks() {
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="font-bold text-3xl">Initiate Recon Attacks</h1>
+      <h1 className="font-bold text-3xl">JsLeaks</h1>
       <div>
         <div className="grid grid-flow-row grid-cols-2 gap-4">
           <Card>
