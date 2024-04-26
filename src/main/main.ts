@@ -233,3 +233,5 @@ app
     });
   })
   .catch(console.log);
+findSecret('D:\\05-Haitham\\Projects\\hunter-kit\\projects\\exemple');
+extraLinks('D:\\05-Haitham\\Projects\\hunter-kit\\projects\\exemple');

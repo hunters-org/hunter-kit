@@ -5,8 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from '../../components/ui/card';
-import Secrets from './JsLeaks Jobs/secrets';
-import EndPoints from './JsLeaks Jobs/EndPoints';
+import Secrets from './jsLeaksJob/secrets';
+import EndPoints from './jsLeaksJob/Endpoint';
 
 export default function JsLeaks() {
   return (

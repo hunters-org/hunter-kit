@@ -9,7 +9,7 @@ import { ProjectLayout } from './layout/projectLayout';
 import Status from './views/project/status';
 import Recon from './views/project/recon';
 import { ReconResults } from './views/project/results/recon-results';
-import JsLeaks from './views/project/JsLeaks.1';
+import JsLeaks from './views/project/JsLeaks';
 
 function Home() {
   return (
