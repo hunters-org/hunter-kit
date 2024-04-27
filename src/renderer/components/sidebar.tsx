@@ -30,9 +30,8 @@ const dashboardMenu: DashboardMenu[] = [
     icon: <PocketKnife className="mr-2 h-4 w-4" />,
   },
   {
-    href: 'attack',
-    title: 'Attack',
-    Disabled: true,
+    href: 'attacks',
+    title: 'Attacks',
     icon: <PocketKnife className="mr-2 h-4 w-4" />,
   },
   {
