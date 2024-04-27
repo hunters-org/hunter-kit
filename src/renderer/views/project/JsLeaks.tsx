@@ -13,6 +13,7 @@ import Secrets from './jsLeaksJob/secrets';
 import EndPoints from './jsLeaksJob/Endpoint';
 import { ProjectDetails } from '../../types';
 
+
 export default function JsLeaks() {
   const [details, setDetails] = useState<ProjectDetails>();
   const { projectSlug } = useParams();
