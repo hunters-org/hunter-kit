@@ -14,6 +14,8 @@ export type Channels =
   | 'waybackurls-parameter'
   | 'get-project-details'
   | 'api-call'
+  | 'find-secrets'
+  | 'extra-links'
   | 'open-link';
 
 const electronHandler = {

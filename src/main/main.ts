@@ -26,7 +26,7 @@ import {
 import { liveSubDomains, screenwin } from './recon/httpx';
 import { fetchJs, parameter, wwayback } from './recon/waybackurls';
 import { returnFile } from './api/serve';
-import { findSecret, extraLinks } from './jsleak/jsleak';
+import { extraLinks, findSecret } from './jsleak/jsleak';
 
 class AppUpdater {
   constructor() {
