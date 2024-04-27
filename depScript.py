@@ -88,6 +88,8 @@ if __name__ == "__main__":
         {"name": "httpx", "repo_owner": "projectdiscovery", "repo_name": "httpx"},
         {"name": "waybackurls", "repo_owner": "tomnomnom", "repo_name": "waybackurls"},
         {"name": "jsleak", "repo_owner": "0xHunterr", "repo_name": "jsleak"},
+        {"name": "dalfox", "repo_owner": "hahwul", "repo_name": "dalfox"},
+        {"name": "nuclei", "repo_owner": "projectdiscovery", "repo_name": "nuclei"},
         # Add more tools as needed
     ]
 

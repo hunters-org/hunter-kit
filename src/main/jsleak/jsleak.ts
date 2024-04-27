@@ -12,7 +12,7 @@ export async function findSecret(outputDir: string = PROJECT_DIR): Promise<{
   error: any;
 }> {
   const jsleak = toolPath('jsleak');
-  const command = `echo ${CurrentOS() === 'win32' ? 'type' : 'cat'} ${path.join(outputDir, 'httpx_live_domains.txt')} | ${jsleak} -s`;
+  const command = `${CurrentOS() === 'win32' ? 'type' : 'cat'} ${path.join(outputDir, 'httpx_live_domains.txt')} | ${jsleak} -s`;
   try {
     fs.writeFileSync(
       `${path.join(outputDir, 'secrets.txt')}`,
