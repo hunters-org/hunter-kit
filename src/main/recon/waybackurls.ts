@@ -20,7 +20,8 @@ export async function wwayback(outputDir: string = PROJECT_DIR): Promise<{
   )}" | ${wwaybackPath} > ${path.join(outputDir, 'waybackurls_archive.txt')}`;
 
   try {
-    await execAsync(command);
+    const res = await execAsync(command);
+    console.log(res);
     const numberOfUrls = await countLines(
       path.join(outputDir, 'waybackurls_archive.txt'),
     );
