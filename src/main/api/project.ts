@@ -1,7 +1,9 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-console */
 import fs from 'fs';
 import path from 'path';
+import axios from 'axios';
 import { defaultToolObj } from '../util';
 import { connectJson } from '../db/connect';
 
@@ -48,6 +50,96 @@ export function createJsonFile(name: string, domain: string) {
     );
   } catch (err) {
     console.error(`Error creating project dir: ${err}`);
+  }
+}
+
+async function getResults(projectUUID: string) {
+  try {
+    const response = await axios.get(
+      `https://api.cloudflare.com/client/v4/accounts/3cce5a88886b46f56d9ff989b715a588/urlscanner/scan/${projectUUID}`,
+      {
+        headers: {
+          Authorization: 'Bearer -Oiz0_Rh5LTRpiA24XSH_eTyr5CqR0BrnOwRhQLx',
+        },
+      },
+    );
+    return response;
+  } catch (error) {
+    console.error('Error retrieving results:', error);
+    throw error;
+  }
+}
+
+export async function createRequestToUrlScanner(name: string, domain: string) {
+  try {
+    const response = await axios.post(
+      'https://api.cloudflare.com/client/v4/accounts/3cce5a88886b46f56d9ff989b715a588/urlscanner/scan/',
+      {
+        url: `https://${domain}`,
+      },
+      {
+        headers: {
+          Authorization: 'Bearer -Oiz0_Rh5LTRpiA24XSH_eTyr5CqR0BrnOwRhQLx',
+        },
+      },
+    );
+    if (response.status === 200) {
+      const projectUUID = response.data.result.uuid;
+
+      let attempts = 0;
+      const maxAttempts = 5; // Maximum number of retries
+      const retryDelay = 2000; // Delay between retries in milliseconds
+
+      const checkResults = async () => {
+        try {
+          const resultResponse = await getResults(projectUUID);
+          if (resultResponse.status === 202 && attempts < maxAttempts) {
+            attempts++;
+            console.log(`Retrying in ${retryDelay / 1000} seconds...`);
+            setTimeout(checkResults, retryDelay);
+          } else {
+            fs.writeFileSync(
+              path.join(`${PROJECT_DIR}/${name}`, 'cf_scan.json'),
+              JSON.stringify(resultResponse.data.result),
+              'utf-8',
+            );
+          }
+        } catch (error) {
+          console.error('Error retrieving results:', error);
+        }
+      };
+
+      setTimeout(checkResults, retryDelay);
+    }
+  } catch (error: any) {
+    if (error.response.status === 409) {
+      const { data } = error.response;
+      const projectUUID = data.result.tasks[0].uuid;
+      let attempts = 0;
+      const maxAttempts = 5; // Maximum number of retries
+      const retryDelay = 2000; // Delay between retries in milliseconds
+
+      const checkResults = async () => {
+        try {
+          const resultResponse = await getResults(projectUUID);
+          if (resultResponse.status === 202 && attempts < maxAttempts) {
+            attempts++;
+            console.log(`Retrying in ${retryDelay / 1000} seconds...`);
+            setTimeout(checkResults, retryDelay);
+          } else {
+            fs.writeFileSync(
+              path.join(`${PROJECT_DIR}/${name}`, 'cf_scan.json'),
+              JSON.stringify(resultResponse.data.result),
+              'utf-8',
+            );
+          }
+        } catch (error) {
+          console.error('Error retrieving results:', error);
+        }
+      };
+
+      setTimeout(checkResults, retryDelay);
+    }
   }
 }
 

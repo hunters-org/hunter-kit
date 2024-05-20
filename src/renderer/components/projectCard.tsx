@@ -39,7 +39,7 @@ export function ProjectCard({ name }: { name: string }) {
             <CardDescription>{project.domain}</CardDescription>
           </CardHeader>
           <CardContent>
-            <p>{formatDistanceToNow(project.updatedAt)}</p>
+            <p>{formatDistanceToNow(project.updatedAt ?? Date.now())}</p>
           </CardContent>
           <CardFooter>
             <p>Card Footer</p>

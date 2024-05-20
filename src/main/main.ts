@@ -20,6 +20,7 @@ import {
   PROJECT_DIR,
   createJsonFile,
   createProjectDir,
+  createRequestToUrlScanner,
   projectDetails,
   readDirectoryNames,
 } from './api/project';
@@ -118,6 +119,7 @@ ipcMain.handle('create-project', async (event, args) => {
   try {
     createProjectDir(projectName);
     createJsonFile(projectName, domain);
+    await createRequestToUrlScanner(projectName, domain);
     return { error: false };
   } catch (err) {
     return { error: true };
