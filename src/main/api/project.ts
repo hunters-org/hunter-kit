@@ -165,3 +165,12 @@ export function projectDetails(projectName: string) {
     throw new Error('Project Cannot be created');
   }
 }
+
+export function projectScan(projectName: string) {
+  try {
+    const db = connectJson(`${PROJECT_DIR}/${projectName}/cf_scan.json`);
+    return db.read();
+  } catch (error) {
+    return 'error';
+  }
+}

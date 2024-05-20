@@ -16,6 +16,7 @@ export type Channels =
   | 'api-call'
   | 'find-secrets'
   | 'extra-links'
+  | 'get-project-scan'
   | 'open-link';
 
 const electronHandler = {

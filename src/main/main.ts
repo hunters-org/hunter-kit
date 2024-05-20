@@ -22,6 +22,7 @@ import {
   createProjectDir,
   createRequestToUrlScanner,
   projectDetails,
+  projectScan,
   readDirectoryNames,
 } from './api/project';
 import { liveSubDomains, screenwin } from './recon/httpx';
@@ -102,6 +103,12 @@ ipcMain.handle('get-project-dir', async (event) => {
 ipcMain.handle('get-project-details', async (event, args) => {
   const projectName = args[0];
   const data = projectDetails(projectName);
+  return data;
+});
+
+ipcMain.handle('get-project-scan', async (event, args) => {
+  const projectName = args[0];
+  const data = projectScan(projectName);
   return data;
 });
 
