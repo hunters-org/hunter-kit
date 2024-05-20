@@ -27,6 +27,15 @@ import { liveSubDomains, screenwin } from './recon/httpx';
 import { fetchJs, parameter, wwayback } from './recon/waybackurls';
 import { returnFile } from './api/serve';
 import { extraLinks, findSecret } from './jsleak/jsleak';
+import {
+  defaultCredentials,
+  exposedPanels,
+  generalScanning,
+  scanningCVEs,
+  scanningForExposures,
+  scanningForLFI,
+  subdomainTakeovers,
+} from './scanning/nuclei';
 
 class AppUpdater {
   constructor() {
@@ -233,3 +242,11 @@ app
     });
   })
   .catch(console.log);
+// const test = '';
+// exposedPanels(test);
+// generalScanning(test);
+// defaultCredentials(test);
+// subdomainTakeovers(test);
+// scanningForExposures(test);
+// scanningForLFI(test);
+// scanningCVEs(test);

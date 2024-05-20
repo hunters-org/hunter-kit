@@ -10,6 +10,16 @@ export interface ProjectDetails {
   screens?: JobDetails;
   extraLinks?: JobDetails;
   findSecrets?: JobDetails;
+  exposures?: JobDetails;
+  scanningForLFI?: JobDetails;
+  scanningCVEs?: JobDetails;
+  generalScanning?: JobDetails;
+  exposedPanels?: JobDetails;
+  defaultCredentials?: JobDetails;
+  subdomainTakeovers?: JobDetails;
+  missingHeaders?: JobDetails;
+  XSS?: JobDetails;
+  multiScans?: JobDetails;
   params?: JobDetails;
   liveDomains?: JobDetails;
   archive?: JobDetails;
