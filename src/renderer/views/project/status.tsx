@@ -22,7 +22,6 @@ export default function Status() {
       );
       if (projectScan !== 'error') {
         setScan(projectScan);
-        console.log(projectScan);
       }
       setProjects(projectNames);
     } catch (error) {

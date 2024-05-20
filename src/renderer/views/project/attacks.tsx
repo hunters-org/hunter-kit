@@ -1,3 +1,7 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -5,12 +9,24 @@ import {
   CardHeader,
   CardTitle,
 } from '../../components/ui/card';
+import { ProjectDetails } from '../../types';
 import Exposures from './attacks/exposures';
 import MissingHeaders from './attacks/missingHeaders';
 import PotentialXss from './attacks/potentialXss';
 import SqlInjection from './attacks/sqlInjection';
 
 export default function Attacks() {
+  const [details, setDetails] = useState<ProjectDetails>();
+  const { projectSlug } = useParams();
+
+  const getDetails = async () => {
+    const res = await window.electron.ipcRenderer.invoke(
+      'get-project-details',
+      projectSlug,
+    );
+    setDetails(res);
+  };
+  getDetails();
   return (
     <div className="flex flex-col gap-4">
       <h1 className="font-bold text-3xl">Attacks</h1>
@@ -22,7 +38,7 @@ export default function Attacks() {
               <CardDescription>wanna find exposures ?</CardDescription>
             </CardHeader>
             <CardContent className="flex justify-between">
-              <Exposures />
+              <Exposures {...details} />
             </CardContent>
           </Card>
           <Card>

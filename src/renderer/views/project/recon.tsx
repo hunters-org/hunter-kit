@@ -28,7 +28,6 @@ export default function Recon() {
       projectSlug,
     );
     setDetails(res);
-    console.log(res);
   };
 
   useEffect(() => {

@@ -1,9 +1,12 @@
-import { execSync } from 'child_process';
 import path from 'path';
+import util from 'util';
+import { exec } from 'child_process';
 import { toolPath } from '../util';
 import { PROJECT_DIR } from '../api/project';
 import { connectJson } from '../db/connect';
 import { countLines } from '../results/countResults';
+
+const execAsync = util.promisify(exec);
 
 async function runScan(
   scanType: string,
@@ -17,10 +20,10 @@ async function runScan(
   error: any;
 }> {
   const nuclie = toolPath('nuclei');
-  const command = `${nuclie} -l ${inputFile} ${scanType} -o ${path.join(outputDir, outputFileName)}`;
+  const command = `${nuclie} -l ${outputDir}/${inputFile} ${scanType} -o ${path.join(outputDir, outputFileName)}`;
   console.log(command);
   try {
-    execSync(command);
+    await execAsync(command);
     const numberOfUrls = await countLines(path.join(outputDir, outputFileName));
     const db = connectJson(path.join(`${outputDir}/details.json`));
     await db.update({

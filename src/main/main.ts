@@ -96,6 +96,12 @@ ipcMain.handle('waybackurls-parameter', async (event, args) => {
   return res;
 });
 
+ipcMain.handle('general-scan', async (event, args) => {
+  const { projectName } = args[0];
+  const res = await generalScanning(`${PROJECT_DIR}/${projectName}`);
+  return res;
+});
+
 ipcMain.handle('get-project-dir', async (event) => {
   return PROJECT_DIR;
 });

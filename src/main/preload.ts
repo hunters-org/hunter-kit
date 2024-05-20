@@ -17,6 +17,7 @@ export type Channels =
   | 'find-secrets'
   | 'extra-links'
   | 'get-project-scan'
+  | 'general-scan'
   | 'open-link';
 
 const electronHandler = {
