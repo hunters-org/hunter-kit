@@ -1,9 +1,13 @@
-import { execSync } from 'child_process';
+import { exec } from 'child_process';
+import util from 'util';
+
 import path from 'path';
 import { toolPath } from '../util';
 import { PROJECT_DIR } from '../api/project';
 import { connectJson } from '../db/connect';
 import { countLines } from '../results/countResults';
+
+const execAsync = util.promisify(exec);
 
 export async function scanningForXSS(outputDir: string = PROJECT_DIR): Promise<{
   message: string;
@@ -11,10 +15,10 @@ export async function scanningForXSS(outputDir: string = PROJECT_DIR): Promise<{
   error: any;
 }> {
   const dalfox = toolPath('dalfox');
-  const command = `${dalfox} file ${path.join(outputDir, 'httpx_live_domains.txt')} --skip-bav
+  const command = `${dalfox} file ${path.join(outputDir, 'waybackurls_archive.txt')} --skip-bav
    >> ${path.join(outputDir, 'XSS.txt')}`;
   try {
-    execSync(command);
+    await execAsync(command);
     console.log(command);
     const numberOfUrls = await countLines(path.join(outputDir, 'XSS.txt'));
     const db = connectJson(path.join(`${outputDir}/details.json`));
@@ -38,10 +42,10 @@ export async function multiScans(outputDir: string = PROJECT_DIR): Promise<{
   error: any;
 }> {
   const dalfox = toolPath('dalfox');
-  const command = `${dalfox} file ${path.join(outputDir, 'httpx_live_domains.txt')}
+  const command = `${dalfox} file ${path.join(outputDir, 'waybackurls_archive.txt')}
    >> ${path.join(outputDir, 'multi_scans.txt')}`;
   try {
-    execSync(command);
+    await execAsync(command);
     const numberOfUrls = await countLines(
       path.join(outputDir, 'multi_scans.txt'),
     );

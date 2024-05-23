@@ -20,7 +20,7 @@ async function runScan(
   error: any;
 }> {
   const nuclie = toolPath('nuclei');
-  const command = `${nuclie} -l ${outputDir}/${inputFile} ${scanType} -o ${path.join(outputDir, outputFileName)}`;
+  const command = `${nuclie} -l ${path.join(outputDir, inputFile)} ${scanType} -o ${path.join(outputDir, outputFileName)}`;
   console.log(command);
   try {
     await execAsync(command);
