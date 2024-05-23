@@ -8,26 +8,30 @@ import { Button } from '../../../components/ui/button';
 import { ProjectDetails } from '../../../types';
 import { toast } from '../../../components/ui/use-toast';
 
-export default function PotentialXss(details: ProjectDetails) {
+export default function SubdomainTakeovers(details: ProjectDetails) {
   const [Loading, setLoading] = useState<boolean>(false);
-  const RunPotentialXss = async () => {
+  const RunSubdomainTakeovers = async () => {
+    setLoading(true);
     if (details.name) {
-      const res = await window.electron.ipcRenderer.invoke('potential-xss', {
-        projectName: details.name,
-      });
+      const res = await window.electron.ipcRenderer.invoke(
+        'subdomain-takeovers',
+        {
+          projectName: details.name,
+        },
+      );
       if (res) {
         toast({
-          title: 'Potential XSS job compeleted',
+          title: 'Subdomain Takeovers job compeleted',
         });
       }
     }
-    setLoading(true);
+    setLoading(false);
   };
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {!Loading ? (
-        <Button onClick={RunPotentialXss}>Process</Button>
+        <Button onClick={RunSubdomainTakeovers}>Process</Button>
       ) : (
         <Button disabled>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />

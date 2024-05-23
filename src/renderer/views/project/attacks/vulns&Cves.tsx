@@ -8,26 +8,27 @@ import { Button } from '../../../components/ui/button';
 import { ProjectDetails } from '../../../types';
 import { toast } from '../../../components/ui/use-toast';
 
-export default function PotentialXss(details: ProjectDetails) {
+export default function VulnsCves(details: ProjectDetails) {
   const [Loading, setLoading] = useState<boolean>(false);
-  const RunPotentialXss = async () => {
+  const RunVulnsCves = async () => {
+    setLoading(true);
     if (details.name) {
-      const res = await window.electron.ipcRenderer.invoke('potential-xss', {
+      const res = await window.electron.ipcRenderer.invoke('vulns-cves', {
         projectName: details.name,
       });
       if (res) {
         toast({
-          title: 'Potential XSS job compeleted',
+          title: 'Vulns & CVEs job compeleted',
         });
       }
     }
-    setLoading(true);
+    setLoading(false);
   };
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {!Loading ? (
-        <Button onClick={RunPotentialXss}>Process</Button>
+        <Button onClick={RunVulnsCves}>Process</Button>
       ) : (
         <Button disabled>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />

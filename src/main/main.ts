@@ -38,6 +38,7 @@ import {
   scanningForLFI,
   subdomainTakeovers,
 } from './scanning/nuclei';
+import { scanningForXSS, multiScans } from './scanning/dalfox';
 
 class AppUpdater {
   constructor() {
@@ -99,6 +100,54 @@ ipcMain.handle('waybackurls-parameter', async (event, args) => {
 ipcMain.handle('general-scan', async (event, args) => {
   const { projectName } = args[0];
   const res = await generalScanning(`${PROJECT_DIR}/${projectName}`);
+  return res;
+});
+
+ipcMain.handle('exposed-panels', async (event, args) => {
+  const { projectName } = args[0];
+  const res = await exposedPanels(`${PROJECT_DIR}/${projectName}`);
+  return res;
+});
+
+ipcMain.handle('default-credentials', async (event, args) => {
+  const { projectName } = args[0];
+  const res = await defaultCredentials(`${PROJECT_DIR}/${projectName}`);
+  return res;
+});
+
+ipcMain.handle('subdomain-takeovers', async (event, args) => {
+  const { projectName } = args[0];
+  const res = await subdomainTakeovers(`${PROJECT_DIR}/${projectName}`);
+  return res;
+});
+
+ipcMain.handle('exposures', async (event, args) => {
+  const { projectName } = args[0];
+  const res = await scanningForExposures(`${PROJECT_DIR}/${projectName}`);
+  return res;
+});
+
+ipcMain.handle('vulns-cves', async (event, args) => {
+  const { projectName } = args[0];
+  const res = await scanningCVEs(`${PROJECT_DIR}/${projectName}`);
+  return res;
+});
+
+ipcMain.handle('lfi', async (event, args) => {
+  const { projectName } = args[0];
+  const res = await scanningForLFI(`${PROJECT_DIR}/${projectName}`);
+  return res;
+});
+
+ipcMain.handle('potential-xss', async (event, args) => {
+  const { projectName } = args[0];
+  const res = await scanningForXSS(`${PROJECT_DIR}/${projectName}`);
+  return res;
+});
+
+ipcMain.handle('multi-scans', async (event, args) => {
+  const { projectName } = args[0];
+  const res = await multiScans(`${PROJECT_DIR}/${projectName}`);
   return res;
 });
 
