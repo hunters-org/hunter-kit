@@ -13,12 +13,12 @@ export default function Exposures(details: ProjectDetails) {
   const RunExposures = async () => {
     setLoading(true);
     if (details.name) {
-      const res = await window.electron.ipcRenderer.invoke('general-scan', {
+      const res = await window.electron.ipcRenderer.invoke('exposures', {
         projectName: details.name,
       });
       if (res) {
         toast({
-          title: 'sub-domains job compeleted',
+          title: 'Exposures job compeleted',
         });
       }
     }
