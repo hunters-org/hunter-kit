@@ -20,7 +20,8 @@ async function runScan(
   error: any;
 }> {
   const nuclie = toolPath('nuclei');
-  const command = `${nuclie} -l ${path.join(outputDir, inputFile)} ${scanType} -o ${path.join(outputDir, outputFileName)}`;
+  const outputFileNameJson: string = outputFileName.replace('txt', 'json');
+  const command = `${nuclie} -l ${path.join(outputDir, inputFile)} ${scanType} -je ${path.join(outputDir, outputFileNameJson)}`;
   console.log(command);
   try {
     await execAsync(command);
@@ -129,7 +130,7 @@ export async function scanningForLFI(outputDir: string = PROJECT_DIR): Promise<{
   error: any;
 }> {
   return runScan(
-    '-tag lfi',
+    '-tags lfi',
     'LFI.txt',
     'scanningForLFI',
     outputDir,
