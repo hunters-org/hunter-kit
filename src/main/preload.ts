@@ -18,7 +18,15 @@ export type Channels =
   | 'extra-links'
   | 'get-project-scan'
   | 'general-scan'
-  | 'open-link';
+  | 'open-link'
+  | 'exposed-panels'
+  | 'default-credentials'
+  | 'subdomain-takeovers'
+  | 'exposures'
+  | 'vulns-cves'
+  | 'lfi'
+  | 'potential-xss'
+  | 'multi-scans';
 
 const electronHandler = {
   ipcRenderer: {
