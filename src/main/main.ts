@@ -161,7 +161,11 @@ ipcMain.handle('get-project-details', async (event, args) => {
 
 ipcMain.handle('get-project-scan', async (event, args) => {
   const projectName = args[0];
-  const data = projectScan(projectName);
+  const { domain } = await projectDetails(projectName);
+  const data = await projectScan(projectName);
+  if (data?.scan?.task.status !== 'Finished' || data === null) {
+    await createRequestToUrlScanner(projectName, domain);
+  }
   return data;
 });
 
@@ -179,8 +183,8 @@ ipcMain.handle('create-project', async (event, args) => {
   try {
     createProjectDir(projectName);
     createJsonFile(projectName, domain);
-    await createRequestToUrlScanner(projectName, domain);
-    return { error: false };
+    const scan = await createRequestToUrlScanner(projectName, domain);
+    return { error: false, scan };
   } catch (err) {
     return { error: true };
   }

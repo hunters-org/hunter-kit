@@ -28,6 +28,6 @@ export interface ProjectDetails {
 }
 
 export function connectJson(path: PathLike) {
-  const db = new JSONDB<ProjectDetails>(path);
+  const db = new JSONDB<any>(path);
   return db;
 }

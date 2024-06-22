@@ -26,7 +26,8 @@ export type Channels =
   | 'vulns-cves'
   | 'lfi'
   | 'potential-xss'
-  | 'multi-scans';
+  | 'multi-scans'
+  | 'finished-scan';
 
 const electronHandler = {
   ipcRenderer: {
