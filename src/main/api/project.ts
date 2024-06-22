@@ -4,7 +4,6 @@
 import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
-import { defaultToolObj } from '../util';
 import { connectJson } from '../db/connect';
 
 export const PROJECT_DIR = path.join(__dirname, '../../../projects');
@@ -103,14 +102,17 @@ export async function createRequestToUrlScanner(name: string, domain: string) {
               JSON.stringify(resultResponse.data.result),
               'utf-8',
             );
+            console.log(`cf_scan Finished`);
           }
         } catch (error) {
           console.error('Error retrieving results:', error);
+          return false;
         }
       };
 
       setTimeout(checkResults, retryDelay);
     }
+    return true;
   } catch (error: any) {
     if (error.response.status === 409) {
       const { data } = error.response;
@@ -132,15 +134,18 @@ export async function createRequestToUrlScanner(name: string, domain: string) {
               JSON.stringify(resultResponse.data.result),
               'utf-8',
             );
+            console.log(`cf_scan Finished`);
           }
         } catch (error) {
           console.error('Error retrieving results:', error);
+          return false;
         }
       };
 
       setTimeout(checkResults, retryDelay);
     }
   }
+  return true;
 }
 
 export function appendDateToJson(projectName: string, data: Object) {

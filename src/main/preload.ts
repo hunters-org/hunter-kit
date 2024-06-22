@@ -18,7 +18,8 @@ export type Channels =
   | 'extra-links'
   | 'get-project-scan'
   | 'general-scan'
-  | 'open-link';
+  | 'open-link'
+  | 'finished-scan';
 
 const electronHandler = {
   ipcRenderer: {
