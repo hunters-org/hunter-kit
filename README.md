@@ -30,21 +30,6 @@
 - **Organized Results**: The toolkit organizes all results in a modern and reliable way, which is immensely helpful during the reporting phase.
 - **Statistics**: Generate detailed statistics to provide a comprehensive overview of the findings.
 
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request if you have any suggestions, improvements, or bug reports.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgements
-
-Special thanks to all the contributors and the open-source community for their valuable inputs and support.
-
----
-
 # run the project
 
 
@@ -66,3 +51,16 @@ Run the Project locally
 ```bash
 yarn start
 ```
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request if you have any suggestions, improvements, or bug reports.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+Special thanks to all the contributors and the open-source community for their valuable inputs and support.
+
+---
