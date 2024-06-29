@@ -25,6 +25,9 @@ export interface ProjectDetails {
   screens?: JobDetails;
   params?: JobDetails;
   liveDomains?: JobDetails;
+  generalScanning?: JobDetails;
+  XSS?: JobDetails;
+  multiScans?: JobDetails;
   archive?: JobDetails;
   js?: JobDetails;
   updatedAt: Date;

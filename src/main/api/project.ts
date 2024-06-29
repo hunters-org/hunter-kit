@@ -179,3 +179,14 @@ export function projectScan(projectName: string) {
     return 'error';
   }
 }
+
+export function projectAttackResult(projectName: string) {
+  try {
+    const db = connectJson(
+      `${PROJECT_DIR}/${projectName}/general_scanning.json`,
+    );
+    return db.read();
+  } catch (error) {
+    return 'error';
+  }
+}

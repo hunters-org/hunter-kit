@@ -34,16 +34,10 @@ const dashboardMenu: DashboardMenu[] = [
     title: 'Attacks',
     icon: <PocketKnife className="mr-2 h-4 w-4" />,
   },
-  {
-    href: 'interceptor',
-    title: 'Interceptor',
-    Disabled: true,
-    icon: <LayoutDashboardIcon className="mr-2 h-4 w-4" />,
-  },
 
   {
     href: 'jsleaks',
-    title: 'JsLeaks',
+    title: 'JavaScript Leaks',
     icon: <LayoutDashboardIcon className="mr-2 h-4 w-4" />,
   },
 ];
@@ -57,14 +51,7 @@ const resultArch: DashboardMenu[] = [
   {
     href: 'attack-result',
     title: 'Attack',
-    Disabled: true,
     icon: <PocketKnife className="mr-2 h-4 w-4" />,
-  },
-  {
-    href: 'interceptor-result',
-    title: 'Interceptor',
-    Disabled: true,
-    icon: <LayoutDashboardIcon className="mr-2 h-4 w-4" />,
   },
 ];
 

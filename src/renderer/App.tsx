@@ -11,6 +11,7 @@ import Recon from './views/project/recon';
 import { ReconResults } from './views/project/results/recon-results';
 import JsLeaks from './views/project/JsLeaks';
 import Attacks from './views/project/attacks';
+import AttacksResults from './views/project/attackResults';
 
 function Home() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="result" element={<Results />} />
             <Route path="result-recon" element={<ReconResults />} />
             <Route path="attacks" element={<Attacks />} />
+            <Route path="attack-result" element={<AttacksResults />} />
             <Route path="jsleaks" element={<JsLeaks />} />
           </Route>
         </Routes>

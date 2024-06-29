@@ -20,7 +20,7 @@ export function returnFile(where: string, type: string) {
     console.error('Error reading file:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Internal Server Error' }),
+      body: 'no results',
       headers: {
         'Content-Type': 'application/json',
       },

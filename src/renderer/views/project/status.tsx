@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -94,7 +95,7 @@ export default function Status() {
         </div>
       )}
       <h1 className="text-lg font-bold my-4">Insights</h1>
-      <div className="grid grid-flow-row grid-cols-2 mt-4 gap-20">
+      <div className="grid grid-flow-row grid-cols-2 mt-4 gap-6">
         {project && <StatusCard {...project} />}
       </div>
     </div>

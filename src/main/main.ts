@@ -13,6 +13,7 @@ import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import os from 'node:os';
+import axios from 'axios';
 import MenuBuilder from './menu';
 import { initProjectDir, resolveHtmlPath } from './util';
 import { subFinder } from './recon/subfinder';
@@ -21,6 +22,7 @@ import {
   createJsonFile,
   createProjectDir,
   createRequestToUrlScanner,
+  projectAttackResult,
   projectDetails,
   projectScan,
   readDirectoryNames,
@@ -190,6 +192,47 @@ ipcMain.handle('create-project', async (event, args) => {
   }
 });
 
+ipcMain.handle('get-attack-result', async (event, args) => {
+  const projectName = args[0];
+  try {
+    const results = await projectAttackResult(projectName);
+    return { error: false, results };
+  } catch (err) {
+    return { error: true };
+  }
+});
+
+ipcMain.handle('fetch-data', async (event, args) => {
+  const url =
+    'https://api.cloudflare.com/client/v4/accounts/3cce5a88886b46f56d9ff989b715a588/ai/run/@cf/openchat/openchat-3.5-0106';
+  const token = 'YbXmqtPZXLgeQSOSjMHC3ka4Qret1QCpQSZXMWCR';
+
+  const requestData = {
+    stream: false,
+    messages: [
+      { role: 'system', content: 'You are a web security consaltunt' },
+      {
+        role: 'user',
+        content: `can you help me to have attack or prevent this ${args[0].userInput} `,
+      },
+    ],
+  };
+
+  try {
+    const response = await axios.post(url, requestData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch data:', error);
+    throw error;
+  }
+});
+
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
@@ -198,9 +241,9 @@ if (process.env.NODE_ENV === 'production') {
 const isDebug =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
-if (isDebug) {
-  require('electron-debug')();
-}
+// if (isDebug) {
+//   require('electron-debug')();
+// }
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');

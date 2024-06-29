@@ -14,12 +14,11 @@ export async function scanningForXSS(outputDir: string = PROJECT_DIR): Promise<{
   success: boolean;
   error: any;
 }> {
-  const dalfox = toolPath('dalfox');
-  const command = `${dalfox} file ${path.join(outputDir, 'waybackurls_archive.txt')} --skip-bav
+  const dalfox = 'dalfox';
+  const command = `${dalfox} file ${path.join(outputDir, 'httpx_live_domains.txt')} --skip-bav
    >> ${path.join(outputDir, 'XSS.txt')}`;
   try {
     await execAsync(command);
-    console.log(command);
     const numberOfUrls = await countLines(path.join(outputDir, 'XSS.txt'));
     const db = connectJson(path.join(`${outputDir}/details.json`));
     await db.update({
@@ -41,8 +40,8 @@ export async function multiScans(outputDir: string = PROJECT_DIR): Promise<{
   success: boolean;
   error: any;
 }> {
-  const dalfox = toolPath('dalfox');
-  const command = `${dalfox} file ${path.join(outputDir, 'waybackurls_archive.txt')}
+  const dalfox = 'dalfox';
+  const command = `${dalfox} file ${path.join(outputDir, 'httpx_live_domains.txt')}
    >> ${path.join(outputDir, 'multi_scans.txt')}`;
   try {
     await execAsync(command);

@@ -11,7 +11,7 @@ export async function findSecret(outputDir: string = PROJECT_DIR): Promise<{
   success: boolean;
   error: any;
 }> {
-  const jsleak = toolPath('jsleak');
+  const jsleak = '$(go env GOPATH)/bin/jsleak';
   const command = `${CurrentOS() === 'win32' ? 'type' : 'cat'} ${path.join(outputDir, 'httpx_live_domains.txt')} | ${jsleak} -s`;
   try {
     fs.writeFileSync(
@@ -40,7 +40,7 @@ export async function extraLinks(outputDir: string = PROJECT_DIR): Promise<{
   success: boolean;
   error: any;
 }> {
-  const jsleak = toolPath('jsleak');
+  const jsleak = '$(go env GOPATH)/bin/jsleak';
   const command = `${CurrentOS() === 'win32' ? 'type' : 'cat'} ${path.join(outputDir, 'httpx_live_domains.txt')} | ${jsleak} -l | findstr ".js"`;
   try {
     fs.writeFileSync(

@@ -33,7 +33,7 @@ export function ProjectCard({ name }: { name: string }) {
   return (
     project && (
       <Link key={`${project.name}-kit`} to={`/${name}/dashboard`}>
-        <Card className="hover:bg-slate-900 cursor-pointer duration-300">
+        <Card className="hover:bg-gray-500 bg-gray-500/20 cursor-pointer duration-300">
           <CardHeader>
             <CardTitle>{project.name}</CardTitle>
             <CardDescription>{project.domain}</CardDescription>
@@ -41,9 +41,6 @@ export function ProjectCard({ name }: { name: string }) {
           <CardContent>
             <p>{formatDistanceToNow(project.updatedAt ?? Date.now())}</p>
           </CardContent>
-          <CardFooter>
-            <p>Card Footer</p>
-          </CardFooter>
         </Card>
       </Link>
     )

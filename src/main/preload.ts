@@ -25,8 +25,10 @@ export type Channels =
   | 'exposures'
   | 'vulns-cves'
   | 'lfi'
+  | 'fetch-data'
   | 'potential-xss'
   | 'multi-scans'
+  | 'get-attack-result'
   | 'finished-scan';
 
 const electronHandler = {
